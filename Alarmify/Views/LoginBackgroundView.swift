@@ -10,7 +10,7 @@ import UIKit
 
 class LoginBackgroundView: UIView {
     private var image: Data?
-    private var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,16 +29,8 @@ class LoginBackgroundView: UIView {
     }
     
     private func setImage() {
-        spinner.startAnimating()
         let filePath = Bundle.main.path(forResource: "stars", ofType: "gif")
         image = filePath != nil ? try? NSData(contentsOfFile: filePath!) as Data : nil
-    }
-    
-    private func setSpinner() {
-        spinner.hidesWhenStopped = true
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-        spinner.center = center
-        addSubview(spinner)
     }
 
     private func setAsView() {
@@ -55,6 +47,16 @@ class LoginBackgroundView: UIView {
 }
 
 extension LoginBackgroundView: UIWebViewDelegate {
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        spinner.isHidden = false
+        spinner.center = webView.center
+        webView.addSubview(spinner)
+        webView.bringSubview(toFront: spinner)
+        spinner.startAnimating()
+        spinner.hidesWhenStopped = true
+    }
+    
     func webViewDidFinishLoad(_ webView: UIWebView) {
         spinner.stopAnimating()
     }

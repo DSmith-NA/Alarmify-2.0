@@ -16,6 +16,7 @@ class SpotifyManager {
     static let instance = SpotifyManager()
     private let playlistPubSub = PublishSubject<[SimplifiedPlaylist]>()
     private weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private var appStartTime: Date
     
     private(set) var playlists: [SimplifiedPlaylist]?
     private(set) var tracks = Variable<[PlaylistTrack]>([])
@@ -27,12 +28,15 @@ class SpotifyManager {
     var spotifyAlarmList = [SpotifyAlarm]()
     
     private init() {
+        appStartTime = Date()
         subscribeToPubSub()
         monitorForAlarm()
     }
     
     deinit {
         unsubscribeToPubSub()
+        subscribeForSnooze(alarm: nil, shouldSubscribe: false)
+        subscribeForVibrate(false)
     }
     
     private func subscribeToPubSub() {
@@ -108,24 +112,24 @@ class SpotifyManager {
         _ = clockTimer.subscribe {
             [weak self]
             _ in
-            let filteredList = self?.spotifyAlarmList.filter {
+            guard let strongSelf = self else { return }
+            let filteredList = strongSelf.spotifyAlarmList.filter {
                 alarm in
                 alarm.date.timeIntervalSinceNow.sign == .minus
                 }.filter {
                     alarm in
                     !alarm.shouldPlay
             }
-            guard let alarmToPlay = filteredList,
-                alarmToPlay.count > 0 else { return }
-            let alarm = alarmToPlay.first!
-            let index = self?.spotifyAlarmList.index(of: alarm)
+            guard filteredList.count > 0 else { return }
+            let alarm = filteredList.first!
+            let index = strongSelf.spotifyAlarmList.index(of: alarm)
             alarm.shouldPlay = true
-            self?.appDelegate?.spotifyPlayer?.playSpotifyURI(alarm.trackUri, startingWith: 0, startingWithPosition: 0, callback: nil)
-            self?.presentDismissAlarm(alarm)
-            self?.spotifyAlarmList.remove(at: index!)
-            guard let spotifyAlarmList = self?.spotifyAlarmList else { return }
-            let userData = NSKeyedArchiver.archivedData(withRootObject: spotifyAlarmList)
+            strongSelf.spotifyAlarmList.remove(at: index!)
+            let userData = NSKeyedArchiver.archivedData(withRootObject: strongSelf.spotifyAlarmList)
             UserDefaults.standard.set(userData, forKey: alarm_key)
+            if (alarm.date < strongSelf.appStartTime) { return }
+            strongSelf.appDelegate?.spotifyPlayer?.playSpotifyURI(alarm.trackUri, startingWith: 0, startingWithPosition: 0, callback: nil)
+            strongSelf.presentDismissAlarm(alarm)
         }
     }
     
@@ -165,8 +169,9 @@ class SpotifyManager {
         }
     }
     
-    private func subscribeForSnooze(alarm: SpotifyAlarm, shouldSubscribe: Bool) {
+    private func subscribeForSnooze(alarm: SpotifyAlarm?, shouldSubscribe: Bool) {
         if shouldSubscribe {
+            guard let alarm = alarm else { return }
             snoozeDisposable = snoozeTimer.subscribe {
                 [weak self]
                 _ in
