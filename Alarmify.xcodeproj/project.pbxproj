@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AB07F89F20C9F52D007D59A4 /* Timers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07F89E20C9F52D007D59A4 /* Timers.swift */; };
 		AB0E057F20C31EDE00054510 /* SpotifyTrackCollectionViewCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0E057E20C31EDE00054510 /* SpotifyTrackCollectionViewCellHeader.swift */; };
+		AB1E9BCB20D5559500852368 /* BackgroundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1E9BCA20D5559500852368 /* BackgroundViewModel.swift */; };
 		AB2775C4207AFCD00080245F /* SpotifyAlarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2775C3207AFCD00080245F /* SpotifyAlarm.swift */; };
 		AB3851732068A6D200E9D4ED /* AlarmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3851722068A6D200E9D4ED /* AlarmsViewController.swift */; };
 		AB75A22F2068847300ECDCCA /* AlarmViewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB75A22E2068847300ECDCCA /* AlarmViewCollectionViewCell.xib */; };
@@ -38,6 +39,7 @@
 		80000AAF33FE2185E63E8BAE /* Pods-Alarmify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alarmify.release.xcconfig"; path = "Pods/Target Support Files/Pods-Alarmify/Pods-Alarmify.release.xcconfig"; sourceTree = "<group>"; };
 		AB07F89E20C9F52D007D59A4 /* Timers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timers.swift; sourceTree = "<group>"; };
 		AB0E057E20C31EDE00054510 /* SpotifyTrackCollectionViewCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyTrackCollectionViewCellHeader.swift; sourceTree = "<group>"; };
+		AB1E9BCA20D5559500852368 /* BackgroundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundViewModel.swift; sourceTree = "<group>"; };
 		AB2775C3207AFCD00080245F /* SpotifyAlarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAlarm.swift; sourceTree = "<group>"; };
 		AB3851722068A6D200E9D4ED /* AlarmsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmsViewController.swift; sourceTree = "<group>"; };
 		AB75A22E2068847300ECDCCA /* AlarmViewCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlarmViewCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				ABDAEDC6204CAEFF002F136D /* CollectionViewCells */,
 				ABDAEDB4204B697F002F136D /* LoginBackgroundView.swift */,
+				AB1E9BCA20D5559500852368 /* BackgroundViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB1E9BCB20D5559500852368 /* BackgroundViewModel.swift in Sources */,
 				AB0E057F20C31EDE00054510 /* SpotifyTrackCollectionViewCellHeader.swift in Sources */,
 				ABDAEDC0204CA4CE002F136D /* ClockViewController.swift in Sources */,
 				ABD558202079154000C7D362 /* BasicViewController.swift in Sources */,
