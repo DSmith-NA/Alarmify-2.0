@@ -7,46 +7,56 @@
 //
 
 import UIKit
+import RxSwift
 
 class AlarmsViewController: BasicViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    private let dateFormatter = DateFormatter()
-    private let timeFormatter = DateFormatter()
+    private let viewModel = AlarmsViewModel()
     private var alarms: [SpotifyAlarm]?
+    private var alarmDisposable: Disposable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateFormatter.dateFormat = "MMM dd"
-        timeFormatter.dateFormat = "h:mm a"
         initCollectionView()
-        setAlarmsArray()
         navigationController?.navigationBar.isHidden = false
         navigationController?.navigationItem.rightBarButtonItem = editButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setAlarmsArray()
-        collectionView.reloadData()
+        subscribeToAlarms()
+        viewModel.setAlarms()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        unsubscribeToAlarms()
     }
 
     private func initCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UINib(nibName: alarm_view_collection_cell_id, bundle: nil), forCellWithReuseIdentifier: alarm_view_collection_cell_id)
-        collectionView.backgroundView = LoginBackgroundView(frame: view.frame)
+        collectionView.backgroundView = BackgroundView(frame: view.frame)
     }
     
-    private func setAlarmsArray() {
-        alarms = spotifyManager.spotifyAlarmList
-        alarms = alarms!.filter {
-            spotifyAlarm in
-            spotifyAlarm.date.timeIntervalSinceNow.sign != .minus
+    private func subscribeToAlarms() {
+        alarmDisposable = viewModel.alarmsObserver.subscribe {
+            [weak self]
+            event in
+            switch (event) {
+            case .next(let alarms):
+                self?.alarms = alarms
+                self?.collectionView.reloadData()
+            case .error(let error):
+                print("Failed to emit Alart Data \(error.localizedDescription)")
+            case .completed:
+                print("Emissions completed from Alarms Observer")
+            }
         }
-        alarms!.sort(by: {
-            alarm1, alarm2 in
-            alarm1.date.compare(alarm2.date) == .orderedAscending
-        })
+    }
+    
+    private func unsubscribeToAlarms() {
+        alarmDisposable?.dispose()
     }
 }
 
@@ -60,22 +70,15 @@ extension AlarmsViewController: UICollectionViewDelegateFlowLayout {
 // MARK: UICollectionViewDelegate
 extension AlarmsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let alarms = alarms else { return UICollectionViewCell() }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: alarm_view_collection_cell_id, for: indexPath) as! AlarmViewCollectionViewCell
-        let alarm = alarms![indexPath.row]
-        cell.dateLabel.text = dateFormatter.string(from: alarm.date)
-        cell.timeLabel.text = timeFormatter.string(from: alarm.date)
+        
+        let alarm = alarms[indexPath.row]
+        cell.dateLabel.text = viewModel.getFormattedStringFor(date: alarm.date, type: .date)
+        cell.timeLabel.text = viewModel.getFormattedStringFor(date: alarm.date, type: .time)
         cell.trackLabel.text = alarm.trackName
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
 }
 
 // MARK: UICollectionViewDataSource
@@ -86,6 +89,6 @@ extension AlarmsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return alarms!.count
+        return alarms != nil ? alarms!.count : 0
     }
 }

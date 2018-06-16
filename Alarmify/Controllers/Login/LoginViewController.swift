@@ -13,7 +13,7 @@ class LoginViewController: BasicViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(LoginBackgroundView(frame: view.frame))
+        view.addSubview(BackgroundView(frame: view.frame))
         setupLoginButton()
     }
     

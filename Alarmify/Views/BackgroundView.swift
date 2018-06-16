@@ -11,7 +11,7 @@ import RxSwift
 
 private let mimeType = "image/gif"
 
-class LoginBackgroundView: UIView {
+class BackgroundView: UIView {
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     private var webViewDisposable: Disposable?
     private(set) var viewModel = BackgroundViewModel() // TODO: Inject this value somehow

@@ -68,7 +68,7 @@ class SpotifyTracksViewController: BasicViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(UINib(nibName: tracks_collection_cell_id, bundle: nil), forCellWithReuseIdentifier: tracks_collection_cell_id)
-        collectionView.backgroundView = LoginBackgroundView(frame: view.frame)
+        collectionView.backgroundView = BackgroundView(frame: view.frame)
     }
     
     private func isFiltered() -> Bool {
