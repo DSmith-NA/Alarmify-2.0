@@ -81,4 +81,29 @@ class SpotifyCollectionViewModel: NSObject {
         }
         return filteredTracks
     }
+    
+    func addAlarm(_ alarm: SpotifyAlarm, datePicker: UIDatePicker?) {
+        guard let datePicker = datePicker else { return }
+        let alarmData = UserDefaults.standard.object(forKey: alarm_key) as? NSData
+        guard let finalAlarmData = alarmData,
+            var spotifyAlarms = NSKeyedUnarchiver.unarchiveObject(with: finalAlarmData as Data) as? [SpotifyAlarm] else {
+                var spotifyAlarms = [SpotifyAlarm]()
+                spotifyAlarms.append(alarm)
+                updateUserDefaults(with: spotifyAlarms)
+                return
+        }
+        
+        spotifyAlarms = spotifyAlarms.filter {
+            alarm in
+            alarm.date != datePicker.date
+        }
+        
+        spotifyAlarms.append(alarm)
+        updateUserDefaults(with: spotifyAlarms)
+    }
+    
+    private func updateUserDefaults(with alarms: [SpotifyAlarm]) {
+        let userData = NSKeyedArchiver.archivedData(withRootObject: alarms)
+        UserDefaults.standard.set(userData, forKey: alarm_key)
+    }
 }

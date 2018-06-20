@@ -24,8 +24,7 @@ class SpotifyTracksViewController: BasicViewController {
             self.collectionView.reloadData()
         }
     }
-
-    private var spotifyTracksDisposable: Disposable?
+    
     private var playlistMapDisposable: Disposable?
     
     var datePicker: UIDatePicker?
@@ -56,20 +55,6 @@ class SpotifyTracksViewController: BasicViewController {
     }
     
     private func addObservers() {
-     /*   spotifyTracksDisposable = spotifyManager.tracks.asObservable().subscribe {
-            [weak self]
-            event in
-            switch event {
-            case .next:
-                self?.activityIndicator.stopAnimating()
-                self?.collectionView?.reloadData()
-            case .error(let error):
-                print(error)
-            case .completed:
-                print("SpotifyTracks stopped emissions")
-            }
-        } */
-        
         playlistMapDisposable = viewModel.playlistMapObservable.subscribe {
             [weak self]
             event in
@@ -85,7 +70,6 @@ class SpotifyTracksViewController: BasicViewController {
     }
     
     private func removeObservers() {
-        spotifyTracksDisposable?.dispose()
         playlistMapDisposable?.dispose()
     }
     
@@ -98,6 +82,10 @@ class SpotifyTracksViewController: BasicViewController {
     
     private func isFiltered() -> Bool {
         return filteredTracks.count > 0 && filteredTracks.count < spotifyManager.tracks.count
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
     
     @objc private func dismissKeyboard() {
@@ -189,18 +177,12 @@ extension SpotifyTracksViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let playlist = spotifyManager.playlists![indexPath.section]
-        let tracks = spotifyManager.playlistTrackMap.value[playlist]
-        let track = isFiltered() ? filteredTracks[indexPath.row] : tracks![indexPath.row]
-        guard let datePicker = datePicker else { return }
+        guard let playlistMap = viewModel.playlistMap,
+            let datePicker = datePicker else { return }
+        let tracks = Array(playlistMap)[indexPath.section].value
+        let track = isFiltered() ? filteredTracks[indexPath.row] : tracks[indexPath.row]
         let spotifyAlarm = SpotifyAlarm(date: datePicker.date, trackName: track.track.name, trackUri: track.track.uri)
-        spotifyManager.spotifyAlarmList = spotifyManager.spotifyAlarmList.filter {
-            alarm in
-            alarm.date != datePicker.date
-        }
-        spotifyManager.spotifyAlarmList.append(spotifyAlarm)
-        let userData = NSKeyedArchiver.archivedData(withRootObject: spotifyManager.spotifyAlarmList)
-        UserDefaults.standard.set(userData, forKey: alarm_key)
+        viewModel.addAlarm(spotifyAlarm, datePicker: datePicker)
         navigationController?.popToRootViewController(animated: true)
     }
 }

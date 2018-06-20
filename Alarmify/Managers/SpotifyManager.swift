@@ -64,7 +64,10 @@ class SpotifyManager {
                     playlistTrack1, playlistTrack2 in
                     playlistTrack1.track.name < playlistTrack2.track.name
                 }
+                
+                // Unfortunately Dictionaries cannot be sorted - consider changing to [Struct] implementation
                 self?.playlistTrackMap.value.updateValue(sortedPlaylistTracks, forKey: playlist)
+                
                 self?.tracks.append(contentsOf: sortedPlaylistTracks)
                 _ = self?.tracks.sorted {
                     (playlistTrack1, playlistTrack2) in
