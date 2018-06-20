@@ -16,7 +16,18 @@ class SpotifyTracksViewController: BasicViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    private let viewModel = SpotifyCollectionViewModel()
+    
+    private(set) var playlistMap: SpotifyMap? {
+        didSet {
+            self.activityIndicator.stopAnimating()
+            self.collectionView.reloadData()
+        }
+    }
+
     private var spotifyTracksDisposable: Disposable?
+    private var playlistMapDisposable: Disposable?
+    
     var datePicker: UIDatePicker?
     var filteredTracks = [PlaylistTrack]()
     
@@ -36,6 +47,7 @@ class SpotifyTracksViewController: BasicViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         addObservers()
+        spotifyManager.fetchPlaylists()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -44,7 +56,7 @@ class SpotifyTracksViewController: BasicViewController {
     }
     
     private func addObservers() {
-        spotifyTracksDisposable = spotifyManager.tracks.asObservable().subscribe {
+     /*   spotifyTracksDisposable = spotifyManager.tracks.asObservable().subscribe {
             [weak self]
             event in
             switch event {
@@ -56,12 +68,25 @@ class SpotifyTracksViewController: BasicViewController {
             case .completed:
                 print("SpotifyTracks stopped emissions")
             }
+        } */
+        
+        playlistMapDisposable = viewModel.playlistMapObservable.subscribe {
+            [weak self]
+            event in
+            switch event {
+                case .next(let playlistMap):
+                    self?.playlistMap = playlistMap
+                case .error(let error):
+                    print("Failed to emit Playlist Map element: \(error.localizedDescription)")
+                case .completed:
+                    print("SpotifyCollectionViewModel stopped emitting events")
+            }
         }
     }
     
     private func removeObservers() {
         spotifyTracksDisposable?.dispose()
-        spotifyTracksDisposable = nil
+        playlistMapDisposable?.dispose()
     }
     
     private func initCollectionView() {
@@ -72,7 +97,7 @@ class SpotifyTracksViewController: BasicViewController {
     }
     
     private func isFiltered() -> Bool {
-        return filteredTracks.count > 0 && filteredTracks.count < spotifyManager.tracks.value.count
+        return filteredTracks.count > 0 && filteredTracks.count < spotifyManager.tracks.count
     }
     
     @objc private func dismissKeyboard() {
@@ -84,18 +109,21 @@ class SpotifyTracksViewController: BasicViewController {
 extension SpotifyTracksViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredTracks = spotifyManager.tracks.value.filter {
-            track in
-            track.track.name.lowercased().contains(searchText.lowercased())
-        }
         
-        filteredTracks += spotifyManager.tracks.value.filter {
-            track in
-            !track.track.artists.filter {
-                artist in
-                artist.name.lowercased().contains(searchText.lowercased())
-            }.isEmpty
-        }
+        // Filter by Tracks
+        let tracksByName = viewModel.filterTracksBy(type: .tracks, searchText: searchText)
+        self.filteredTracks = tracksByName
+        
+        // Filter By Playlist
+        var filteredTracks = self.filteredTracks
+        let tracksByPlaylistName = viewModel.filterTracksBy(type: .playlists, searchText: searchText).filter{!(filteredTracks as NSArray).contains($0)}
+        self.filteredTracks += tracksByPlaylistName
+        
+        // Filter by Artist
+        filteredTracks = self.filteredTracks
+        let tracksByArtistsName = viewModel.filterTracksBy(type: .artists, searchText: searchText).filter{!(filteredTracks as NSArray).contains($0)}
+        self.filteredTracks += tracksByArtistsName
+        
         collectionView.reloadData()
     }
     
@@ -116,14 +144,14 @@ extension SpotifyTracksViewController: UICollectionViewDelegateFlowLayout {
 extension SpotifyTracksViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        let playlistCount = spotifyManager.playlists != nil ? spotifyManager.playlists!.count : 1
+        let playlistCount = viewModel.playlistMap != nil ? viewModel.playlistMap!.keys.count : 1
         let count = isFiltered() ? 1 : playlistCount
         return count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let playlists = spotifyManager.playlists else { return 0 }
-        guard let tracks = spotifyManager.playlistTrackMap.value[playlists[section]] else { return 0 }
+        guard let playlistMap = viewModel.playlistMap else { return 0 }
+        let tracks = Array(playlistMap)[section].value
         let count = isFiltered() ? filteredTracks.count : tracks.count
         return count
     }
@@ -133,10 +161,10 @@ extension SpotifyTracksViewController: UICollectionViewDataSource {
 extension SpotifyTracksViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let playlistMap = viewModel.playlistMap else { return UICollectionViewCell() }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tracks_collection_cell_id, for: indexPath) as! SpotifyTrackCollectionViewCell
-        let playlist = spotifyManager.playlists![indexPath.section]
-        let tracks = spotifyManager.playlistTrackMap.value[playlist]
-        let track = isFiltered() ? filteredTracks[indexPath.row] : tracks![indexPath.row] //spotifyManager.tracks.value[indexPath.row]
+        let tracks = Array(playlistMap)[indexPath.section].value
+        let track = isFiltered() ? filteredTracks[indexPath.row] : tracks[indexPath.row]
         cell.trackLabel.text = track.track.name
         var artistLabel = ""
         track.track.artists.filter {
@@ -154,8 +182,9 @@ extension SpotifyTracksViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let playlistMap = playlistMap else { return UICollectionReusableView() }
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SpotifyTrackCollectionViewCellHeader", for: indexPath) as! SpotifyTrackCollectionViewCellHeader
-        header.playlistTitle.text = spotifyManager.playlists?[indexPath.section].name
+        header.playlistTitle.text = isFiltered() ? "Search" :  Array(playlistMap)[indexPath.section].key.name
         return header
     }
     
