@@ -12,12 +12,14 @@ class SpotifyAlarm: NSObject, NSCoding {
     let date: Date
     let trackName: String
     let trackUri: String
+    let image: UIImage?
     var shouldPlay = false
     
-    init(date: Date, trackName: String, trackUri: String) {
+    init(date: Date, trackName: String, trackUri: String, image: UIImage?) {
         self.date = date
         self.trackName = trackName
         self.trackUri = trackUri
+        self.image = image
         super.init()
     }
     
@@ -32,6 +34,7 @@ class SpotifyAlarm: NSObject, NSCoding {
         aCoder.encode(date, forKey: spotify_date)
         aCoder.encode(trackName, forKey: spotify_track_name)
         aCoder.encode(trackUri, forKey: spotify_track_uri)
+        aCoder.encode(image, forKey: spotify_track_image)
     }
     
     // MARK: Decoder
@@ -42,6 +45,7 @@ class SpotifyAlarm: NSObject, NSCoding {
             else {
                 return nil
         }
-        self.init(date: date, trackName: trackName, trackUri: trackUri)
+        let image = aDecoder.decodeObject(forKey: spotify_track_image) as? UIImage
+        self.init(date: date, trackName: trackName, trackUri: trackUri, image: image)
     }
 }

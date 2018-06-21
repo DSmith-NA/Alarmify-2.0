@@ -11,6 +11,7 @@ import Spartan
 import SpotifyLogin
 import RxSwift
 import AudioToolbox.AudioServices
+import PopupDialog
 
 typealias SpotifyMap = [SimplifiedPlaylist : [PlaylistTrack]]
 
@@ -99,7 +100,11 @@ class SpotifyManager {
             [weak self]
             _ in
             guard let strongSelf = self else { return }
-            let filteredList = strongSelf.spotifyAlarmList.filter {
+            let alarmData = UserDefaults.standard.object(forKey: alarm_key) as? NSData
+            guard let finalAlarmData = alarmData,
+                var spotifyAlarms = NSKeyedUnarchiver.unarchiveObject(with: finalAlarmData as Data) as? [SpotifyAlarm] else { return }
+            
+            let filteredList = spotifyAlarms.filter {
                 alarm in
                 alarm.date.timeIntervalSinceNow.sign == .minus
                 }.filter {
@@ -108,10 +113,10 @@ class SpotifyManager {
             }
             guard filteredList.count > 0 else { return }
             let alarm = filteredList.first!
-            let index = strongSelf.spotifyAlarmList.index(of: alarm)
+            let index = spotifyAlarms.index(of: alarm)
             alarm.shouldPlay = true
-            strongSelf.spotifyAlarmList.remove(at: index!)
-            let userData = NSKeyedArchiver.archivedData(withRootObject: strongSelf.spotifyAlarmList)
+            spotifyAlarms.remove(at: index!)
+            let userData = NSKeyedArchiver.archivedData(withRootObject: spotifyAlarms)
             UserDefaults.standard.set(userData, forKey: alarm_key)
             if (alarm.date < strongSelf.appStartTime) { return }
             strongSelf.appDelegate?.spotifyPlayer?.playSpotifyURI(alarm.trackUri, startingWith: 0, startingWithPosition: 0, callback: nil)
@@ -120,22 +125,21 @@ class SpotifyManager {
     }
     
     private func presentDismissAlarm(_ alarm: SpotifyAlarm) {
-        let alertsVC = UIAlertController(title: "⏰", message: alarm.trackName, preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "😡", style: .destructive) {
-            [weak self]
-            _ in
-            self?.stopPlayer()
-            self?.subscribeForSnooze(alarm: alarm, shouldSubscribe: false)
+        let strongSelf = self
+        let popup = PopupDialog(title: "⏰", message: alarm.trackName, image: alarm.image)
+        let cancelButton = DefaultButton(title: "Wake Up 😡") {
+            strongSelf.stopPlayer()
+            strongSelf.subscribeForSnooze(alarm: alarm, shouldSubscribe: false)
         }
-        let snoozeAction = UIAlertAction(title: "😴", style: .default) {
-            [weak self]
-            _ in
-            self?.stopPlayer()
-            self?.subscribeForSnooze(alarm: alarm, shouldSubscribe: true)
+        
+        let snoozeButton = DefaultButton(title: "Snooze 😴") {
+            strongSelf.stopPlayer()
+            strongSelf.subscribeForSnooze(alarm: alarm, shouldSubscribe: true)
         }
-        alertsVC.addAction(snoozeAction)
-        alertsVC.addAction(dismissAction)
-        UIApplication.shared.keyWindow?.rootViewController?.present(alertsVC, animated: true, completion: nil)
+        
+        popup.addButtons([snoozeButton, cancelButton])
+        popup.buttonAlignment = .horizontal
+        UIApplication.shared.keyWindow?.rootViewController?.present(popup, animated: true, completion: nil)
         subscribeForVibrate(true)
     }
     

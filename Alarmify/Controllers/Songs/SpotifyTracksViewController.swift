@@ -10,6 +10,7 @@ import UIKit
 import Spartan
 import RxSwift
 import SDWebImage
+import PopupDialog
 
 class SpotifyTracksViewController: BasicViewController {
     @IBOutlet weak var collectionView: UICollectionView!
@@ -181,8 +182,18 @@ extension SpotifyTracksViewController: UICollectionViewDelegate {
             let datePicker = datePicker else { return }
         let tracks = Array(playlistMap)[indexPath.section].value
         let track = isFiltered() ? filteredTracks[indexPath.row] : tracks[indexPath.row]
-        let spotifyAlarm = SpotifyAlarm(date: datePicker.date, trackName: track.track.name, trackUri: track.track.uri)
+        let trackURL = track.track.album.images[0].url
+        let image: UIImage? = trackURL != nil ? try! UIImage.sd_image(with: Data(contentsOf: URL(string: trackURL!)!)) : nil
+        let spotifyAlarm = SpotifyAlarm(date: datePicker.date, trackName: track.track.name, trackUri: track.track.uri, image: image)
         viewModel.addAlarm(spotifyAlarm, datePicker: datePicker)
         navigationController?.popToRootViewController(animated: true)
+        showAlarmAddedPopup(spotifyAlarm)
+    }
+    
+    private func showAlarmAddedPopup(_ alarm: SpotifyAlarm) {
+        let cancelButton = CancelButton(title: "CANCEL", action: nil)
+        let popup = PopupDialog(title: "You've added an alarm 🎉", message: alarm.trackName, image: alarm.image)
+        popup.addButton(cancelButton)
+        self.present(popup, animated: true, completion: nil)
     }
 }

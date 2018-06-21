@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        customizePopupViewForDarkMode()
         SpotifyLogin.shared.configure(clientID: client_id, clientSecret: client_secret, redirectURL: URL(string: redirect_url)!)
         spotifyPlayer?.delegate = self
         spotifyPlayer?.playbackDelegate = self
