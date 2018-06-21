@@ -40,8 +40,11 @@ class AlarmsViewModel: NSObject {
     }
     
     // TODO: This should be refactored to update whenever the spotifyAlarmList changes
-    func setAlarms() {
-        alarms = SpotifyManager.instance.spotifyAlarmList
+    func fetchAlarms() {
+        let alarmData = UserDefaults.standard.object(forKey: alarm_key) as? NSData
+        guard let finalAlarmData = alarmData,
+            let spotifyAlarms = NSKeyedUnarchiver.unarchiveObject(with: finalAlarmData as Data) as? [SpotifyAlarm] else { return }
+        alarms = spotifyAlarms
     }
     
     func getFormattedStringFor(date: Date, type: Formatter) -> String? {

@@ -25,7 +25,7 @@ class AlarmsViewController: BasicViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         subscribeToAlarms()
-        viewModel.setAlarms()
+        viewModel.fetchAlarms()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

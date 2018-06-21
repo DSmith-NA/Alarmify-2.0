@@ -19,7 +19,7 @@ class ClockViewController: BasicViewController {
     
     @IBAction func createAlarmTapped(_ button: TransitionButton) {
         button.startAnimation()
-        spotifyManager.fetchPlaylists()
+        // spotifyManager.fetchPlaylists()
         DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
             sleep(1)
             DispatchQueue.main.async(execute: { () -> Void in

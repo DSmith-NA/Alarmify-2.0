@@ -12,6 +12,8 @@ import SpotifyLogin
 import RxSwift
 import AudioToolbox.AudioServices
 
+typealias SpotifyMap = [SimplifiedPlaylist : [PlaylistTrack]]
+
 class SpotifyManager {
     static let instance = SpotifyManager()
     private let playlistPubSub = PublishSubject<[SimplifiedPlaylist]>()
@@ -19,9 +21,10 @@ class SpotifyManager {
     private var appStartTime: Date
     
     private(set) var playlists: [SimplifiedPlaylist]?
-    private(set) var tracks = Variable<[PlaylistTrack]>([])
-    private(set) var playlistTrackMap = Variable<[SimplifiedPlaylist : [PlaylistTrack]]>([:])
+    private(set) var tracks = [PlaylistTrack]()
+    private(set) var playlistTrackMap = Variable<SpotifyMap>([:])
     
+    private(set) var fetchPlaylistDisposable: Disposable?
     private(set) var vibrateDisposable: Disposable?
     private(set) var snoozeDisposable: Disposable?
     
@@ -29,43 +32,21 @@ class SpotifyManager {
     
     private init() {
         appStartTime = Date()
-        subscribeToPubSub()
         monitorForAlarm()
     }
     
     deinit {
-        unsubscribeToPubSub()
         subscribeForSnooze(alarm: nil, shouldSubscribe: false)
         subscribeForVibrate(false)
     }
     
-    private func subscribeToPubSub() {
-       _ = playlistPubSub.subscribe {
-            [weak self]
-            event in
-            switch event {
-            case .next(let value):
-                self?.playlists = value
-                self?.fetchTracks()
-            case .error(let error):
-                print(error)
-            case .completed:
-                print("Playlist PubSub no longer emitting events")
-            }
-        }
-    }
-    
-    public func unsubscribeToPubSub() {
-        playlistPubSub.dispose()
-    }
-    
-    public func fetchPlaylists() {
-        _ = fetchPlaylistTimer.subscribe {
+    func fetchPlaylists() {
+        fetchPlaylistDisposable = fetchPlaylistTimer.subscribe {
             _ in
             Spartan.getMyPlaylists(success: {
                 [weak self]
                 pagingObject in
-                self?.playlistPubSub.onNext(pagingObject.items)
+                self?.fetchTracks(playlists: pagingObject.items)
                 }, failure: {
                     spartanError in
                     print(spartanError)
@@ -73,8 +54,8 @@ class SpotifyManager {
         }
     }
     
-    private func fetchTracks() {
-        self.playlists?.forEach {
+    func fetchTracks(playlists: [SimplifiedPlaylist]) {
+        playlists.forEach {
             playlist in
             getPlaylistTracks(playlist: playlist) {
                 [weak self]
@@ -83,9 +64,12 @@ class SpotifyManager {
                     playlistTrack1, playlistTrack2 in
                     playlistTrack1.track.name < playlistTrack2.track.name
                 }
+                
+                // Unfortunately Dictionaries cannot be sorted - consider changing to [Struct] implementation
                 self?.playlistTrackMap.value.updateValue(sortedPlaylistTracks, forKey: playlist)
-                self?.tracks.value.append(contentsOf: sortedPlaylistTracks)
-                _ = self?.tracks.value.sorted {
+                
+                self?.tracks.append(contentsOf: sortedPlaylistTracks)
+                _ = self?.tracks.sorted {
                     (playlistTrack1, playlistTrack2) in
                     playlistTrack1.track.name < playlistTrack2.track.name
                 }
@@ -95,11 +79,13 @@ class SpotifyManager {
     
     private func getPlaylistTracks(playlist: SimplifiedPlaylist, completion: @escaping ([PlaylistTrack]) -> ()) {
         Spartan.getPlaylistTracks(userId: playlist.owner.id as! String, playlistId: playlist.id as! String, success: {
-            [weak self]
             pagingObject in
-            let filteredTracks = pagingObject.items.filter {
-                playlistTrack in
-                self != nil && !(self!.tracks.value as NSArray).contains(playlistTrack)
+            var filteredTracks = [PlaylistTrack]()
+            pagingObject.items.forEach {
+                track in
+                if !(filteredTracks as NSArray).contains(track) {
+                    filteredTracks.append(track)
+                }
             }
             completion(filteredTracks)
             }, failure: {
