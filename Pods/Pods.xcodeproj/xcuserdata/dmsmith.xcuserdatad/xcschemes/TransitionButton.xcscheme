@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '437EFC95BDFEF23F369A56DE96E42418'
-               BlueprintName = 'TransitionButton'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'TransitionButton.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2554DE7F75D3D4CE186C94522ED85432"
+               BlueprintName = "TransitionButton"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "TransitionButton.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

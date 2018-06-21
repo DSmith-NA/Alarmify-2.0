@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '2173F1793DA1D4B4C10BAB8598D16020'
-               BlueprintName = 'Spartan'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Spartan.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A3FB506AA3589747FE31C97212C61E72"
+               BlueprintName = "Spartan"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "Spartan.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'FFC2303D4708BD90ED4525797666E56F'
-               BlueprintName = 'AlamoRecord'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'AlamoRecord.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FFC2303D4708BD90ED4525797666E56F"
+               BlueprintName = "AlamoRecord"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "AlamoRecord.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -9,11 +9,12 @@ target 'Alarmify' do
   # Pods for Alarmify
   pod 'SpotifyLogin', '~> 0.1'
   pod 'Spartan', '~> 1.1'
-  
+
   pod 'RxSwift', '~> 4.0'
   pod 'RxCocoa', '~> 4.0'
   pod 'SDWebImage', '~> 4.0'
-  
+
+  pod 'PopupDialog', '~> 0.7'
   pod 'TransitionButton'
   pod 'Hero', '~> 1.1'
 end
