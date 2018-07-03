@@ -13,8 +13,6 @@ import RxSwift
 import AudioToolbox.AudioServices
 import PopupDialog
 
-typealias SpotifyMap = [SimplifiedPlaylist : [PlaylistTrack]]
-
 class SpotifyManager {
     static let instance = SpotifyManager()
     private let playlistPubSub = PublishSubject<[SimplifiedPlaylist]>()
@@ -23,7 +21,7 @@ class SpotifyManager {
     
     private(set) var playlists: [SimplifiedPlaylist]?
     private(set) var tracks = [PlaylistTrack]()
-    private(set) var playlistTrackMap = Variable<SpotifyMap>([:])
+    private(set) var spotifyPlaylists = Variable<[SpotifyPlaylist]>([])
     
     private(set) var fetchPlaylistDisposable: Disposable?
     private(set) var vibrateDisposable: Disposable?
@@ -65,9 +63,13 @@ class SpotifyManager {
                     playlistTrack1, playlistTrack2 in
                     playlistTrack1.track.name < playlistTrack2.track.name
                 }
-                
-                // Unfortunately Dictionaries cannot be sorted - consider changing to [Struct] implementation
-                self?.playlistTrackMap.value.updateValue(sortedPlaylistTracks, forKey: playlist)
+        
+                // TODO: See if there's a way this can be refactored
+                self?.spotifyPlaylists.value.append(SpotifyPlaylist(name: playlist.name, tracks: sortedPlaylistTracks))
+                self?.spotifyPlaylists.value = (self?.spotifyPlaylists.value.sorted {
+                    (playlist1, playlist2) in
+                    playlist1.name < playlist2.name
+                    })!
                 
                 self?.tracks.append(contentsOf: sortedPlaylistTracks)
                 _ = self?.tracks.sorted {

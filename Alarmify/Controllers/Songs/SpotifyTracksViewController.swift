@@ -19,14 +19,7 @@ class SpotifyTracksViewController: BasicViewController {
     
     private let viewModel = SpotifyCollectionViewModel()
     
-    private(set) var playlistMap: SpotifyMap? {
-        didSet {
-            self.activityIndicator.stopAnimating()
-            self.collectionView.reloadData()
-        }
-    }
-    
-    private var playlistMapDisposable: Disposable?
+    private var spotifyPlaylistsDisposable: Disposable?
     
     var datePicker: UIDatePicker?
     var filteredTracks = [PlaylistTrack]()
@@ -56,22 +49,24 @@ class SpotifyTracksViewController: BasicViewController {
     }
     
     private func addObservers() {
-        playlistMapDisposable = viewModel.playlistMapObservable.subscribe {
+        
+        spotifyPlaylistsDisposable = viewModel.spotifyPlaylistsObservable.subscribe {
             [weak self]
             event in
             switch event {
-                case .next(let playlistMap):
-                    self?.playlistMap = playlistMap
+                case .next(_):
+                    self?.activityIndicator.stopAnimating()
+                    self?.collectionView.reloadData()
                 case .error(let error):
-                    print("Failed to emit Playlist Map element: \(error.localizedDescription)")
+                    print("Failed to emit SpotifyPlaylists element: \(error.localizedDescription)")
                 case .completed:
                     print("SpotifyCollectionViewModel stopped emitting events")
-            }
+                }
         }
     }
     
     private func removeObservers() {
-        playlistMapDisposable?.dispose()
+        spotifyPlaylistsDisposable?.dispose()
     }
     
     private func initCollectionView() {
@@ -133,14 +128,14 @@ extension SpotifyTracksViewController: UICollectionViewDelegateFlowLayout {
 extension SpotifyTracksViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        let playlistCount = viewModel.playlistMap != nil ? viewModel.playlistMap!.keys.count : 1
+        let playlistCount = viewModel.spotifyPlaylists != nil ? viewModel.spotifyPlaylists!.count : 1
         let count = isFiltered() ? 1 : playlistCount
         return count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let playlistMap = viewModel.playlistMap else { return 0 }
-        let tracks = Array(playlistMap)[section].value
+        guard let playlists = viewModel.spotifyPlaylists else { return 0 }
+        let tracks = playlists[section].tracks
         let count = isFiltered() ? filteredTracks.count : tracks.count
         return count
     }
@@ -150,9 +145,9 @@ extension SpotifyTracksViewController: UICollectionViewDataSource {
 extension SpotifyTracksViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let playlistMap = viewModel.playlistMap else { return UICollectionViewCell() }
+        guard let playlists = viewModel.spotifyPlaylists else { return UICollectionViewCell() }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tracks_collection_cell_id, for: indexPath) as! SpotifyTrackCollectionViewCell
-        let tracks = Array(playlistMap)[indexPath.section].value
+        let tracks = playlists[indexPath.section].tracks
         let track = isFiltered() ? filteredTracks[indexPath.row] : tracks[indexPath.row]
         cell.trackLabel.text = track.track.name
         var artistLabel = ""
@@ -171,16 +166,16 @@ extension SpotifyTracksViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let playlistMap = playlistMap else { return UICollectionReusableView() }
+        guard let playlists = viewModel.spotifyPlaylists else { return UICollectionReusableView() }
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SpotifyTrackCollectionViewCellHeader", for: indexPath) as! SpotifyTrackCollectionViewCellHeader
-        header.playlistTitle.text = isFiltered() ? "Search" :  Array(playlistMap)[indexPath.section].key.name
+        header.playlistTitle.text = isFiltered() ? "Search" :  playlists[indexPath.section].name
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let playlistMap = viewModel.playlistMap,
+        guard let playlists = viewModel.spotifyPlaylists,
             let datePicker = datePicker else { return }
-        let tracks = Array(playlistMap)[indexPath.section].value
+        let tracks = playlists[indexPath.section].tracks
         let track = isFiltered() ? filteredTracks[indexPath.row] : tracks[indexPath.row]
         let trackURL = track.track.album.images[0].url
         let image: UIImage? = trackURL != nil ? try! UIImage.sd_image(with: Data(contentsOf: URL(string: trackURL!)!)) : nil

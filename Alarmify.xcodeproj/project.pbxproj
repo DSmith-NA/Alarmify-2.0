@@ -16,6 +16,7 @@
 		AB75A231206885E200ECDCCA /* AlarmViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB75A230206885E200ECDCCA /* AlarmViewCollectionViewCell.swift */; };
 		AB75A2332068915F00ECDCCA /* CreateAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB75A2322068915F00ECDCCA /* CreateAlarmViewController.swift */; };
 		ABA522E520D5C9D20009D039 /* AlarmsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA522E420D5C9D20009D039 /* AlarmsViewModel.swift */; };
+		ABAB3DFC20EBDD8D00696328 /* SpotifyPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAB3DFB20EBDD8D00696328 /* SpotifyPlaylist.swift */; };
 		ABC2DE58205A2434008B5981 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC2DE57205A2434008B5981 /* SpotifyAudioPlayback.framework */; };
 		ABC2DE5A205A2EB5008B5981 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABDAEDA4204B601D002F136D /* Info.plist */; };
 		ABD3836720D738E000D70DFD /* SpotifyCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD3836620D738E000D70DFD /* SpotifyCollectionViewModel.swift */; };
@@ -48,6 +49,7 @@
 		AB75A230206885E200ECDCCA /* AlarmViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		AB75A2322068915F00ECDCCA /* CreateAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlarmViewController.swift; sourceTree = "<group>"; };
 		ABA522E420D5C9D20009D039 /* AlarmsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmsViewModel.swift; sourceTree = "<group>"; };
+		ABAB3DFB20EBDD8D00696328 /* SpotifyPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPlaylist.swift; sourceTree = "<group>"; };
 		ABC2DE57205A2434008B5981 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
 		ABC2DE59205A24AC008B5981 /* Alarmify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Alarmify-Bridging-Header.h"; sourceTree = "<group>"; };
 		ABD3836620D738E000D70DFD /* SpotifyCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyCollectionViewModel.swift; sourceTree = "<group>"; };
@@ -100,14 +102,6 @@
 			path = Timers;
 			sourceTree = "<group>";
 		};
-		AB2775C2207AFCA60080245F /* SpotifyAlarm */ = {
-			isa = PBXGroup;
-			children = (
-				AB2775C3207AFCD00080245F /* SpotifyAlarm.swift */,
-			);
-			path = SpotifyAlarm;
-			sourceTree = "<group>";
-		};
 		AB3851712068A6C000E9D4ED /* Alarms */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +109,15 @@
 				ABA522E420D5C9D20009D039 /* AlarmsViewModel.swift */,
 			);
 			path = Alarms;
+			sourceTree = "<group>";
+		};
+		ABAB3DFA20EBDD6E00696328 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB2775C3207AFCD00080245F /* SpotifyAlarm.swift */,
+				ABAB3DFB20EBDD8D00696328 /* SpotifyPlaylist.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		ABDAED8C204B601D002F136D = {
@@ -138,8 +141,8 @@
 		ABDAED97204B601D002F136D /* Alarmify */ = {
 			isa = PBXGroup;
 			children = (
+				ABAB3DFA20EBDD6E00696328 /* Models */,
 				AB07F89D20C9F51B007D59A4 /* Timers */,
-				AB2775C2207AFCA60080245F /* SpotifyAlarm */,
 				ABDAEDBB204B7871002F136D /* Managers */,
 				ABDAEDB3204B6966002F136D /* Views */,
 				ABDAEDB0204B6918002F136D /* Images */,
@@ -399,6 +402,7 @@
 				ABDAEDAB204B625B002F136D /* Constants.swift in Sources */,
 				ABDAEDB8204B76E8002F136D /* SpotifyTracksViewController.swift in Sources */,
 				AB75A2332068915F00ECDCCA /* CreateAlarmViewController.swift in Sources */,
+				ABAB3DFC20EBDD8D00696328 /* SpotifyPlaylist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
