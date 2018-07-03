@@ -14,7 +14,7 @@ private let mimeType = "image/gif"
 class BackgroundView: UIView {
     private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     private var webViewDisposable: Disposable?
-    private(set) var viewModel = BackgroundViewModel() // TODO: Inject this value somehow
+    private(set) var viewModel = BackgroundViewModel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -17,61 +17,62 @@ enum FilterType {
 }
 
 class SpotifyCollectionViewModel: NSObject {
-    let playlistMapObservable = PublishSubject<SpotifyMap>()
     let filteredTracksObservable = PublishSubject<[PlaylistTrack]>()
+    let spotifyPlaylistsObservable = PublishSubject<[SpotifyPlaylist]>()
     
-    private(set) var playlistMap: SpotifyMap?
-    private var playlistMapDisposable: Disposable?
+    private var spotifyPlaylistsDisposable: Disposable?
+    private(set) var spotifyPlaylists: [SpotifyPlaylist]?
    
     override init() {
         super.init()
-        subscribeToPlaylistMap()
+        subscribeToSpotifyPlaylists()
     }
     
     deinit {
-        unsubscribeToPlaylistMap()
+        unsubscribeToSpotifyPlaylists()
     }
     
-    func subscribeToPlaylistMap() {
-        playlistMapDisposable = SpotifyManager.instance.playlistTrackMap.asObservable().subscribe {
+    func subscribeToSpotifyPlaylists() {
+        
+        spotifyPlaylistsDisposable = SpotifyManager.instance.spotifyPlaylists.asObservable().subscribe {
             [weak self]
             event in
             switch(event) {
-                case .next(let spotifyMap):
-                    self?.playlistMap = spotifyMap
-                    self?.playlistMapObservable.onNext(spotifyMap)
+                case .next(let spotifyPlaylists):
+                    self?.spotifyPlaylists = spotifyPlaylists
+                    self?.spotifyPlaylistsObservable.onNext(spotifyPlaylists)
                 case .error(let error):
-                    print("Emission of Playlist Map failed: \(error.localizedDescription)")
+                    print("Emission of Spotify Playlists failed: \(error.localizedDescription)")
                 case .completed:
                     print("Spotify Manager completed emissions")
             }
         }
     }
     
-    func unsubscribeToPlaylistMap() {
-        playlistMapDisposable?.dispose()
+    func unsubscribeToSpotifyPlaylists() {
+        spotifyPlaylistsDisposable?.dispose()
     }
     
     func filterTracksBy(type: FilterType, searchText: String) -> [PlaylistTrack] {
         var filteredTracks = [PlaylistTrack]()
-        guard let playlistMap = playlistMap else { return filteredTracks }
+        guard let playlists = spotifyPlaylists else { return filteredTracks }
         
         let searchText = searchText.lowercased().trimmingCharacters(in: .whitespaces)
         switch (type) {
             case .tracks:
-                filteredTracks += playlistMap.values.flatMap { $0 }.filter {
+                filteredTracks += playlists.flatMap { $0.tracks }.filter {
                     track in
                     track.track.name.lowercased().contains(searchText)
                 }
             
             case .playlists:
-                filteredTracks += playlistMap.filter {
+                filteredTracks += playlists.filter {
                     playlist in
-                    playlist.key.name.lowercased().contains(searchText)
-                    }.values.flatMap { $0 }
+                    playlist.name.lowercased().contains(searchText)
+                    }.flatMap { $0.tracks }
             
             case .artists:
-                filteredTracks += playlistMap.values.flatMap { $0 }.filter {
+                filteredTracks += playlists.flatMap { $0.tracks }.filter {
                     track in
                     track.track.artists.contains {
                         artist in
