@@ -5,8 +5,11 @@ PODS:
     - ObjectMapper (~> 3.0)
   - AlamoRecord (1.1.1):
     - AlamofireObjectMapper (~> 5.0)
+  - DynamicBlurView (2.0.2)
   - Hero (1.1.0)
   - ObjectMapper (3.1.0)
+  - PopupDialog (0.7.1):
+    - DynamicBlurView (~> 2.0)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
@@ -20,6 +23,7 @@ PODS:
 
 DEPENDENCIES:
   - Hero (~> 1.1)
+  - PopupDialog (~> 0.7)
   - RxCocoa (~> 4.0)
   - RxSwift (~> 4.0)
   - SDWebImage (~> 4.0)
@@ -27,12 +31,30 @@ DEPENDENCIES:
   - SpotifyLogin (~> 0.1)
   - TransitionButton
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireObjectMapper
+    - AlamoRecord
+    - DynamicBlurView
+    - Hero
+    - ObjectMapper
+    - PopupDialog
+    - RxCocoa
+    - RxSwift
+    - SDWebImage
+    - Spartan
+    - SpotifyLogin
+    - TransitionButton
+
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
   AlamoRecord: 78653b9a5da21ab5bb723167e0f552994df85d30
+  DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
   Hero: ce59e81c79390613d97b43da7179e2c5e1017e04
   ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+  PopupDialog: 39598b7d41719f5c025b4b70e62728bae7734fef
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxSwift: e49536837d9901277638493ea537394d4b55f570
   SDWebImage: 29bd3c0bc1f01e5eb59720847c64ad4c4ca1af5d
@@ -40,6 +62,6 @@ SPEC CHECKSUMS:
   SpotifyLogin: 9cdf82ff13e5f37e5ddc7fd07cf9793a9ebd1124
   TransitionButton: 0bf7e5ffe80030f9d10d57983a04acf2f511998a
 
-PODFILE CHECKSUM: a485cc91a6b26494b716adfaab77f00050e36400
+PODFILE CHECKSUM: bb5fd6f55baefb05a717ba17ab9028279a63b1e8
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
