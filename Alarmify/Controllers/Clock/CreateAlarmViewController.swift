@@ -21,9 +21,13 @@ class CreateAlarmViewController: BasicViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         timeSelector.setValue(UIColor.white, forKey: "textColor")
-        timeSelector.minimumDate = Date()
         chooseMusicButton.addTarget(self, action: #selector(chooseMusic), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        timeSelector.minimumDate = Date()
     }
     
     @objc private func chooseMusic() {
