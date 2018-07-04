@@ -128,7 +128,7 @@ class SpotifyManager {
     
     private func presentDismissAlarm(_ alarm: SpotifyAlarm) {
         let strongSelf = self
-        let popup = PopupDialog(title: "⏰", message: alarm.trackName, image: alarm.image)
+        let popup = PopupDialog(title: "⏰", message: alarm.trackName, image: alarm.image, gestureDismissal: false)
         let cancelButton = DefaultButton(title: "Wake Up 😡") {
             strongSelf.stopPlayer()
             strongSelf.subscribeForSnooze(alarm: alarm, shouldSubscribe: false)
