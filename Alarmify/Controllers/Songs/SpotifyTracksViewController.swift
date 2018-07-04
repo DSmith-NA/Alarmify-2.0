@@ -169,6 +169,7 @@ extension SpotifyTracksViewController: UICollectionViewDelegate {
         guard let playlists = viewModel.spotifyPlaylists else { return UICollectionReusableView() }
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SpotifyTrackCollectionViewCellHeader", for: indexPath) as! SpotifyTrackCollectionViewCellHeader
         header.playlistTitle.text = isFiltered() ? "Search" :  playlists[indexPath.section].name
+        header.playlistTitle.font = UIFont(name: "SFProText-Semibold", size: 17)!
         return header
     }
     

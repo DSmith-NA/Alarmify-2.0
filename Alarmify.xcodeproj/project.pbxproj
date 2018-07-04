@@ -34,6 +34,34 @@
 		ABDAEDC0204CA4CE002F136D /* ClockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAEDBF204CA4CE002F136D /* ClockViewController.swift */; };
 		ABDAEDC8204CAF1E002F136D /* SpotifyTrackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAEDC7204CAF1E002F136D /* SpotifyTrackCollectionViewCell.swift */; };
 		ABDAEDCA204CAF52002F136D /* SpotifyTrackCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABDAEDC9204CAF52002F136D /* SpotifyTrackCollectionViewCell.xib */; };
+		ABDE595620EC40E0002CB6D1 /* Hack Bold Italic Nerd Font Complete.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE593A20EC40D4002CB6D1 /* Hack Bold Italic Nerd Font Complete.ttf */; };
+		ABDE595720EC40E0002CB6D1 /* SF-Pro-Text-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE593B20EC40D5002CB6D1 /* SF-Pro-Text-SemiboldItalic.otf */; };
+		ABDE595820EC40E0002CB6D1 /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE593C20EC40D5002CB6D1 /* SF-Pro-Text-Regular.otf */; };
+		ABDE595920EC40E0002CB6D1 /* SFCompactText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE593D20EC40D5002CB6D1 /* SFCompactText-Regular.otf */; };
+		ABDE595A20EC40E0002CB6D1 /* SF-Pro-Text-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE593E20EC40D6002CB6D1 /* SF-Pro-Text-Heavy.otf */; };
+		ABDE595B20EC40E0002CB6D1 /* SFCompactText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE593F20EC40D6002CB6D1 /* SFCompactText-Bold.otf */; };
+		ABDE595C20EC40E0002CB6D1 /* SFCompactText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594020EC40D7002CB6D1 /* SFCompactText-Semibold.otf */; };
+		ABDE595D20EC40E0002CB6D1 /* SF-Pro-Text-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594120EC40D7002CB6D1 /* SF-Pro-Text-MediumItalic.otf */; };
+		ABDE595E20EC40E0002CB6D1 /* SFCompactText-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594220EC40D7002CB6D1 /* SFCompactText-Light.otf */; };
+		ABDE595F20EC40E0002CB6D1 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594320EC40D8002CB6D1 /* SF-Pro-Text-Semibold.otf */; };
+		ABDE596020EC40E0002CB6D1 /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594420EC40D8002CB6D1 /* SF-Pro-Text-Light.otf */; };
+		ABDE596120EC40E0002CB6D1 /* SFCompactText-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594520EC40D8002CB6D1 /* SFCompactText-MediumItalic.otf */; };
+		ABDE596220EC40E0002CB6D1 /* Hack Bold Nerd Font Complete.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594620EC40D9002CB6D1 /* Hack Bold Nerd Font Complete.ttf */; };
+		ABDE596320EC40E0002CB6D1 /* SFCompactText-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594720EC40D9002CB6D1 /* SFCompactText-BoldItalic.otf */; };
+		ABDE596420EC40E0002CB6D1 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594820EC40D9002CB6D1 /* SF-Pro-Text-Bold.otf */; };
+		ABDE596520EC40E0002CB6D1 /* SFCompactText-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594920EC40DA002CB6D1 /* SFCompactText-Heavy.otf */; };
+		ABDE596620EC40E0002CB6D1 /* SF-Pro-Text-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594A20EC40DA002CB6D1 /* SF-Pro-Text-HeavyItalic.otf */; };
+		ABDE596720EC40E0002CB6D1 /* SFCompactText-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594B20EC40DB002CB6D1 /* SFCompactText-RegularItalic.otf */; };
+		ABDE596820EC40E0002CB6D1 /* SF-Pro-Text-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594C20EC40DB002CB6D1 /* SF-Pro-Text-RegularItalic.otf */; };
+		ABDE596920EC40E0002CB6D1 /* SF-Pro-Text-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594D20EC40DC002CB6D1 /* SF-Pro-Text-BoldItalic.otf */; };
+		ABDE596A20EC40E0002CB6D1 /* SFCompactText-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594E20EC40DC002CB6D1 /* SFCompactText-HeavyItalic.otf */; };
+		ABDE596B20EC40E0002CB6D1 /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE594F20EC40DD002CB6D1 /* SF-Pro-Text-Medium.otf */; };
+		ABDE596C20EC40E0002CB6D1 /* SFCompactText-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE595020EC40DD002CB6D1 /* SFCompactText-SemiboldItalic.otf */; };
+		ABDE596D20EC40E0002CB6D1 /* SFCompactText-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE595120EC40DD002CB6D1 /* SFCompactText-Medium.otf */; };
+		ABDE596E20EC40E0002CB6D1 /* SFCompactText-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE595220EC40DE002CB6D1 /* SFCompactText-LightItalic.otf */; };
+		ABDE596F20EC40E0002CB6D1 /* Hack Italic Nerd Font Complete.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE595320EC40DE002CB6D1 /* Hack Italic Nerd Font Complete.ttf */; };
+		ABDE597020EC40E0002CB6D1 /* SF-Pro-Text-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE595420EC40DF002CB6D1 /* SF-Pro-Text-LightItalic.otf */; };
+		ABDE597120EC40E0002CB6D1 /* Hack Regular Nerd Font Complete.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ABDE595520EC40DF002CB6D1 /* Hack Regular Nerd Font Complete.ttf */; };
 		F507051669497E575C165AA9 /* Pods_Alarmify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A33F57916882AA161FCD26D /* Pods_Alarmify.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +97,34 @@
 		ABDAEDBF204CA4CE002F136D /* ClockViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockViewController.swift; sourceTree = "<group>"; };
 		ABDAEDC7204CAF1E002F136D /* SpotifyTrackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyTrackCollectionViewCell.swift; sourceTree = "<group>"; };
 		ABDAEDC9204CAF52002F136D /* SpotifyTrackCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpotifyTrackCollectionViewCell.xib; sourceTree = "<group>"; };
+		ABDE593A20EC40D4002CB6D1 /* Hack Bold Italic Nerd Font Complete.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hack Bold Italic Nerd Font Complete.ttf"; sourceTree = "<group>"; };
+		ABDE593B20EC40D5002CB6D1 /* SF-Pro-Text-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-SemiboldItalic.otf"; sourceTree = "<group>"; };
+		ABDE593C20EC40D5002CB6D1 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		ABDE593D20EC40D5002CB6D1 /* SFCompactText-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-Regular.otf"; sourceTree = "<group>"; };
+		ABDE593E20EC40D6002CB6D1 /* SF-Pro-Text-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Heavy.otf"; sourceTree = "<group>"; };
+		ABDE593F20EC40D6002CB6D1 /* SFCompactText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-Bold.otf"; sourceTree = "<group>"; };
+		ABDE594020EC40D7002CB6D1 /* SFCompactText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-Semibold.otf"; sourceTree = "<group>"; };
+		ABDE594120EC40D7002CB6D1 /* SF-Pro-Text-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-MediumItalic.otf"; sourceTree = "<group>"; };
+		ABDE594220EC40D7002CB6D1 /* SFCompactText-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-Light.otf"; sourceTree = "<group>"; };
+		ABDE594320EC40D8002CB6D1 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
+		ABDE594420EC40D8002CB6D1 /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
+		ABDE594520EC40D8002CB6D1 /* SFCompactText-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-MediumItalic.otf"; sourceTree = "<group>"; };
+		ABDE594620EC40D9002CB6D1 /* Hack Bold Nerd Font Complete.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hack Bold Nerd Font Complete.ttf"; sourceTree = "<group>"; };
+		ABDE594720EC40D9002CB6D1 /* SFCompactText-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-BoldItalic.otf"; sourceTree = "<group>"; };
+		ABDE594820EC40D9002CB6D1 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
+		ABDE594920EC40DA002CB6D1 /* SFCompactText-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-Heavy.otf"; sourceTree = "<group>"; };
+		ABDE594A20EC40DA002CB6D1 /* SF-Pro-Text-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-HeavyItalic.otf"; sourceTree = "<group>"; };
+		ABDE594B20EC40DB002CB6D1 /* SFCompactText-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-RegularItalic.otf"; sourceTree = "<group>"; };
+		ABDE594C20EC40DB002CB6D1 /* SF-Pro-Text-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-RegularItalic.otf"; sourceTree = "<group>"; };
+		ABDE594D20EC40DC002CB6D1 /* SF-Pro-Text-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-BoldItalic.otf"; sourceTree = "<group>"; };
+		ABDE594E20EC40DC002CB6D1 /* SFCompactText-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-HeavyItalic.otf"; sourceTree = "<group>"; };
+		ABDE594F20EC40DD002CB6D1 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		ABDE595020EC40DD002CB6D1 /* SFCompactText-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-SemiboldItalic.otf"; sourceTree = "<group>"; };
+		ABDE595120EC40DD002CB6D1 /* SFCompactText-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-Medium.otf"; sourceTree = "<group>"; };
+		ABDE595220EC40DE002CB6D1 /* SFCompactText-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactText-LightItalic.otf"; sourceTree = "<group>"; };
+		ABDE595320EC40DE002CB6D1 /* Hack Italic Nerd Font Complete.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hack Italic Nerd Font Complete.ttf"; sourceTree = "<group>"; };
+		ABDE595420EC40DF002CB6D1 /* SF-Pro-Text-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-LightItalic.otf"; sourceTree = "<group>"; };
+		ABDE595520EC40DF002CB6D1 /* Hack Regular Nerd Font Complete.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hack Regular Nerd Font Complete.ttf"; sourceTree = "<group>"; };
 		E48B1EBCFCB1297DA0FF1D7F /* Pods-Alarmify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alarmify.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Alarmify/Pods-Alarmify.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +179,7 @@
 		ABDAED8C204B601D002F136D = {
 			isa = PBXGroup;
 			children = (
+				ABDE593820EC409D002CB6D1 /* Resources */,
 				ABDAED97204B601D002F136D /* Alarmify */,
 				ABDAED96204B601D002F136D /* Products */,
 				744005445BB25EE9BBB2258B /* Pods */,
@@ -234,6 +291,49 @@
 			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
+		ABDE593820EC409D002CB6D1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ABDE593920EC40B4002CB6D1 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		ABDE593920EC40B4002CB6D1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				ABDE593A20EC40D4002CB6D1 /* Hack Bold Italic Nerd Font Complete.ttf */,
+				ABDE594620EC40D9002CB6D1 /* Hack Bold Nerd Font Complete.ttf */,
+				ABDE595320EC40DE002CB6D1 /* Hack Italic Nerd Font Complete.ttf */,
+				ABDE595520EC40DF002CB6D1 /* Hack Regular Nerd Font Complete.ttf */,
+				ABDE594820EC40D9002CB6D1 /* SF-Pro-Text-Bold.otf */,
+				ABDE594D20EC40DC002CB6D1 /* SF-Pro-Text-BoldItalic.otf */,
+				ABDE593E20EC40D6002CB6D1 /* SF-Pro-Text-Heavy.otf */,
+				ABDE594A20EC40DA002CB6D1 /* SF-Pro-Text-HeavyItalic.otf */,
+				ABDE594420EC40D8002CB6D1 /* SF-Pro-Text-Light.otf */,
+				ABDE595420EC40DF002CB6D1 /* SF-Pro-Text-LightItalic.otf */,
+				ABDE594F20EC40DD002CB6D1 /* SF-Pro-Text-Medium.otf */,
+				ABDE594120EC40D7002CB6D1 /* SF-Pro-Text-MediumItalic.otf */,
+				ABDE593C20EC40D5002CB6D1 /* SF-Pro-Text-Regular.otf */,
+				ABDE594C20EC40DB002CB6D1 /* SF-Pro-Text-RegularItalic.otf */,
+				ABDE594320EC40D8002CB6D1 /* SF-Pro-Text-Semibold.otf */,
+				ABDE593B20EC40D5002CB6D1 /* SF-Pro-Text-SemiboldItalic.otf */,
+				ABDE593F20EC40D6002CB6D1 /* SFCompactText-Bold.otf */,
+				ABDE594720EC40D9002CB6D1 /* SFCompactText-BoldItalic.otf */,
+				ABDE594920EC40DA002CB6D1 /* SFCompactText-Heavy.otf */,
+				ABDE594E20EC40DC002CB6D1 /* SFCompactText-HeavyItalic.otf */,
+				ABDE594220EC40D7002CB6D1 /* SFCompactText-Light.otf */,
+				ABDE595220EC40DE002CB6D1 /* SFCompactText-LightItalic.otf */,
+				ABDE595120EC40DD002CB6D1 /* SFCompactText-Medium.otf */,
+				ABDE594520EC40D8002CB6D1 /* SFCompactText-MediumItalic.otf */,
+				ABDE593D20EC40D5002CB6D1 /* SFCompactText-Regular.otf */,
+				ABDE594B20EC40DB002CB6D1 /* SFCompactText-RegularItalic.otf */,
+				ABDE594020EC40D7002CB6D1 /* SFCompactText-Semibold.otf */,
+				ABDE595020EC40DD002CB6D1 /* SFCompactText-SemiboldItalic.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		B9A93DF3F4D63C36F994EBB2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,12 +404,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABDE596320EC40E0002CB6D1 /* SFCompactText-BoldItalic.otf in Resources */,
+				ABDE595D20EC40E0002CB6D1 /* SF-Pro-Text-MediumItalic.otf in Resources */,
+				ABDE596820EC40E0002CB6D1 /* SF-Pro-Text-RegularItalic.otf in Resources */,
+				ABDE596520EC40E0002CB6D1 /* SFCompactText-Heavy.otf in Resources */,
+				ABDE596B20EC40E0002CB6D1 /* SF-Pro-Text-Medium.otf in Resources */,
 				ABC2DE5A205A2EB5008B5981 /* Info.plist in Resources */,
+				ABDE595720EC40E0002CB6D1 /* SF-Pro-Text-SemiboldItalic.otf in Resources */,
 				ABDAEDA3204B601D002F136D /* LaunchScreen.storyboard in Resources */,
+				ABDE595620EC40E0002CB6D1 /* Hack Bold Italic Nerd Font Complete.ttf in Resources */,
+				ABDE595920EC40E0002CB6D1 /* SFCompactText-Regular.otf in Resources */,
+				ABDE596D20EC40E0002CB6D1 /* SFCompactText-Medium.otf in Resources */,
+				ABDE596220EC40E0002CB6D1 /* Hack Bold Nerd Font Complete.ttf in Resources */,
+				ABDE596F20EC40E0002CB6D1 /* Hack Italic Nerd Font Complete.ttf in Resources */,
+				ABDE596720EC40E0002CB6D1 /* SFCompactText-RegularItalic.otf in Resources */,
 				ABDAEDA0204B601D002F136D /* Assets.xcassets in Resources */,
 				ABDAEDB2204B693B002F136D /* stars.gif in Resources */,
+				ABDE596A20EC40E0002CB6D1 /* SFCompactText-HeavyItalic.otf in Resources */,
+				ABDE596620EC40E0002CB6D1 /* SF-Pro-Text-HeavyItalic.otf in Resources */,
+				ABDE596120EC40E0002CB6D1 /* SFCompactText-MediumItalic.otf in Resources */,
+				ABDE595F20EC40E0002CB6D1 /* SF-Pro-Text-Semibold.otf in Resources */,
+				ABDE596C20EC40E0002CB6D1 /* SFCompactText-SemiboldItalic.otf in Resources */,
+				ABDE596E20EC40E0002CB6D1 /* SFCompactText-LightItalic.otf in Resources */,
+				ABDE596920EC40E0002CB6D1 /* SF-Pro-Text-BoldItalic.otf in Resources */,
+				ABDE595E20EC40E0002CB6D1 /* SFCompactText-Light.otf in Resources */,
+				ABDE595A20EC40E0002CB6D1 /* SF-Pro-Text-Heavy.otf in Resources */,
+				ABDE595B20EC40E0002CB6D1 /* SFCompactText-Bold.otf in Resources */,
+				ABDE595820EC40E0002CB6D1 /* SF-Pro-Text-Regular.otf in Resources */,
+				ABDE596420EC40E0002CB6D1 /* SF-Pro-Text-Bold.otf in Resources */,
+				ABDE597120EC40E0002CB6D1 /* Hack Regular Nerd Font Complete.ttf in Resources */,
 				ABDAED9E204B601D002F136D /* Main.storyboard in Resources */,
+				ABDE596020EC40E0002CB6D1 /* SF-Pro-Text-Light.otf in Resources */,
+				ABDE597020EC40E0002CB6D1 /* SF-Pro-Text-LightItalic.otf in Resources */,
 				ABDAEDCA204CAF52002F136D /* SpotifyTrackCollectionViewCell.xib in Resources */,
+				ABDE595C20EC40E0002CB6D1 /* SFCompactText-Semibold.otf in Resources */,
 				AB75A22F2068847300ECDCCA /* AlarmViewCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
