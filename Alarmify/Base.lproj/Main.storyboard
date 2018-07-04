@@ -1,27 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g7S-Om-ZFE">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Heavy.otf">
+            <string>SFProText-Heavy</string>
+        </array>
+        <array key="SFCompactText-Semibold.otf">
+            <string>SFCompactText-Semibold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Clock View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ClockViewController" customModule="Alarmify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wv-2Q-EEj" customClass="BackgroundView" customModule="Alarmify" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <viewLayoutGuide key="safeArea" id="hHa-Tg-Jm7"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdj-fx-ZIB">
-                                <rect key="frame" x="10" y="262.5" width="580" height="75"/>
+                                <rect key="frame" x="10" y="296" width="355" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="UlL-v9-jbd"/>
                                 </constraints>
@@ -30,9 +42,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yu-PW-Lhj" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="70" y="370" width="460" height="40"/>
+                                <rect key="frame" x="70" y="437" width="235" height="40"/>
                                 <color key="backgroundColor" red="0.10980392156862745" green="0.72941176470588232" blue="0.33000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="25"/>
+                                <fontDescription key="fontDescription" name="SFCompactText-Semibold" family="SF Compact Text" pointSize="25"/>
                                 <state key="normal" title="Add Alarm">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -80,19 +92,19 @@
             <objects>
                 <viewController storyboardIdentifier="CreateAlarmViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CV1-bb-EMv" customClass="CreateAlarmViewController" customModule="Alarmify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xEb-zd-WxE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vwH-Co-EOj" customClass="BackgroundView" customModule="Alarmify" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTl-2I-zJb">
-                                <rect key="frame" x="0.0" y="192" width="600" height="216"/>
+                                <rect key="frame" x="0.0" y="225.5" width="375" height="216"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <datePicker clearsContextBeforeDrawing="NO" contentMode="scaleToFill" highlighted="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="pOe-MV-GyR">
-                                <rect key="frame" x="140" y="192" width="320" height="216"/>
+                                <rect key="frame" x="27.5" y="225.5" width="320" height="216"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="11f-Cd-sBX"/>
@@ -103,9 +115,9 @@
                                 </date>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cww-7f-Mw6" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="70" y="458" width="460" height="40"/>
+                                <rect key="frame" x="70" y="491.5" width="235" height="40"/>
                                 <color key="backgroundColor" red="0.10980392156862745" green="0.72941176470588232" blue="0.33000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="25"/>
+                                <fontDescription key="fontDescription" name="SFCompactText-Semibold" family="SF Compact Text" pointSize="25"/>
                                 <state key="normal" title="Choose Music">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -118,16 +130,16 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set A Time..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLM-ub-sgF">
-                                <rect key="frame" x="70" y="101" width="460" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Alarm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HLM-ub-sgF">
+                                <rect key="frame" x="70" y="134.5" width="235" height="21"/>
+                                <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBU-qf-HZo" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="70.5" y="530" width="460" height="40"/>
+                                <rect key="frame" x="70.5" y="563.5" width="235" height="40"/>
                                 <color key="backgroundColor" red="0.94869572829131654" green="0.16599264705882349" blue="0.041364233193277339" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="25"/>
+                                <fontDescription key="fontDescription" name="SFCompactText-Semibold" family="SF Compact Text" pointSize="25"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -143,19 +155,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="HLM-ub-sgF" firstAttribute="leading" secondItem="nTq-m2-VCg" secondAttribute="leading" constant="20" id="296-Kp-zqj"/>
                             <constraint firstItem="cww-7f-Mw6" firstAttribute="top" secondItem="pOe-MV-GyR" secondAttribute="bottom" constant="50" id="6Bm-Sg-Mhj"/>
                             <constraint firstItem="vwH-Co-EOj" firstAttribute="width" secondItem="xEb-zd-WxE" secondAttribute="width" id="EHC-uf-tRo"/>
-                            <constraint firstItem="pOe-MV-GyR" firstAttribute="top" secondItem="HLM-ub-sgF" secondAttribute="bottom" constant="70" id="NBG-qX-iuw"/>
                             <constraint firstItem="vwH-Co-EOj" firstAttribute="centerY" secondItem="xEb-zd-WxE" secondAttribute="centerY" id="QbG-HJ-xDy"/>
                             <constraint firstItem="xTl-2I-zJb" firstAttribute="centerX" secondItem="xEb-zd-WxE" secondAttribute="centerX" id="T3w-st-2cI"/>
                             <constraint firstItem="cww-7f-Mw6" firstAttribute="leading" secondItem="nTq-m2-VCg" secondAttribute="leading" constant="70" id="TLH-6G-CSe"/>
                             <constraint firstItem="xTl-2I-zJb" firstAttribute="centerY" secondItem="xEb-zd-WxE" secondAttribute="centerY" id="WJD-dy-Vr5"/>
-                            <constraint firstItem="HLM-ub-sgF" firstAttribute="leading" secondItem="nTq-m2-VCg" secondAttribute="leading" constant="70" id="ZCp-je-YuA"/>
+                            <constraint firstItem="HLM-ub-sgF" firstAttribute="top" secondItem="nTq-m2-VCg" secondAttribute="top" constant="20" id="XDp-yv-I0r"/>
                             <constraint firstItem="nTq-m2-VCg" firstAttribute="trailing" secondItem="cww-7f-Mw6" secondAttribute="trailing" constant="70" id="aGH-wR-35S"/>
                             <constraint firstItem="xTl-2I-zJb" firstAttribute="leading" secondItem="nTq-m2-VCg" secondAttribute="leading" id="af2-W5-vAG"/>
                             <constraint firstItem="nTq-m2-VCg" firstAttribute="trailing" secondItem="xTl-2I-zJb" secondAttribute="trailing" id="eGJ-oR-8Md"/>
                             <constraint firstItem="pOe-MV-GyR" firstAttribute="centerY" secondItem="xEb-zd-WxE" secondAttribute="centerY" id="kEg-k5-r4p"/>
-                            <constraint firstItem="nTq-m2-VCg" firstAttribute="trailing" secondItem="HLM-ub-sgF" secondAttribute="trailing" constant="70" id="lG2-Vu-fpe"/>
                             <constraint firstItem="lBU-qf-HZo" firstAttribute="width" secondItem="cww-7f-Mw6" secondAttribute="width" id="mS2-2L-F85"/>
                             <constraint firstItem="vwH-Co-EOj" firstAttribute="height" secondItem="xEb-zd-WxE" secondAttribute="height" id="orN-As-qfW"/>
                             <constraint firstItem="vwH-Co-EOj" firstAttribute="centerX" secondItem="xEb-zd-WxE" secondAttribute="centerX" id="pba-4f-7Fx"/>
@@ -182,15 +193,15 @@
             <objects>
                 <viewController storyboardIdentifier="SpotifyTracksViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oaP-pO-rCl" customClass="SpotifyTracksViewController" customModule="Alarmify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XyE-D4-Faf">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" barStyle="black" placeholder="Search..." translatesAutoresizingMaskIntoConstraints="NO" id="mFT-tb-Llv">
-                                <rect key="frame" x="0.0" y="20" width="600" height="56"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="slE-xY-X6J">
-                                <rect key="frame" x="0.0" y="76" width="600" height="524"/>
+                                <rect key="frame" x="0.0" y="76" width="375" height="591"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lJH-U4-zbv">
                                     <size key="itemSize" width="50" height="50"/>
@@ -209,7 +220,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="SpotifyTrackCollectionViewCellHeader" id="8Ya-7u-Wdq" customClass="SpotifyTrackCollectionViewCellHeader" customModule="Alarmify" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view alpha="0.45000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKY-Au-vxF">
@@ -238,7 +249,7 @@
                                 </collectionReusableView>
                             </collectionView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GmF-jP-HR4">
-                                <rect key="frame" x="281.5" y="281.5" width="37" height="37"/>
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -270,11 +281,11 @@
             <objects>
                 <viewController id="lMf-5A-WnP" customClass="AlarmsViewController" customModule="Alarmify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NNg-3D-ZeA">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="D5M-gd-Aid">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i2b-9V-cfT">
                                     <size key="itemSize" width="50" height="50"/>
@@ -344,7 +355,6 @@
                     <tabBarItem key="tabBarItem" title="Clock" image="clock" selectedImage="clock" id="Wne-Yu-1kZ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="cH0-0t-8Uq">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
@@ -367,7 +377,7 @@
                     <tabBarItem key="tabBarItem" title="Alarms" image="alarm_clock-1" selectedImage="alarm_clock-1" id="LFM-98-phQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="ZSR-y1-Wwd">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">

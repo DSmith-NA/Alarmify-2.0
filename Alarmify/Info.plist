@@ -37,6 +37,16 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SF-Pro-Text-Heavy.otf</string>
+		<string>SF-Pro-Text-Bold.otf</string>
+		<string>SF-Pro-Text-Medium.otf</string>
+		<string>SFCompactText-Heavy.otf</string>
+		<string>SFCompactText-Bold.otf</string>
+		<string>SFCompactText-Semibold.otf</string>
+		<string>SFCompactText-Medium.otf</string>
+	</array>
 	<key>UIApplicationExitsOnSuspend</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -62,10 +72,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>SF Pro Text</string>
-		<string>SF Compat Text</string>
-	</array>
 </dict>
 </plist>

@@ -36,9 +36,9 @@ let spotify_alarm_path = "/SpotifyAlarm"
 func customizePopupViewForDarkMode() {
     // Customize dialog appearance
     let pv = PopupDialogDefaultView.appearance()
-    pv.titleFont    = UIFont(name: "HelveticaNeue-Light", size: 16)!
+    pv.titleFont    = UIFont(name: "SFProText-Semibold", size: 20)!
     pv.titleColor   = .white
-    pv.messageFont  = UIFont(name: "HelveticaNeue", size: 14)!
+    pv.messageFont  = UIFont(name: "SFProText-Semibold", size: 17)!
     pv.messageColor = UIColor(white: 0.8, alpha: 1)
     
     // Customize the container view appearance
@@ -58,14 +58,14 @@ func customizePopupViewForDarkMode() {
     
     // Customize default button appearance
     let db = DefaultButton.appearance()
-    db.titleFont      = UIFont(name: "HelveticaNeue-Medium", size: 14)!
+    db.titleFont      =  UIFont(name: "SFProText-Semibold", size: 17)!
     db.titleColor     = .white
     db.buttonColor    = UIColor(red:0.25, green:0.25, blue:0.29, alpha:1.00)
     db.separatorColor = UIColor(red:0.20, green:0.20, blue:0.25, alpha:1.00)
     
     // Customize cancel button appearance
     let cb = CancelButton.appearance()
-    cb.titleFont      = UIFont(name: "HelveticaNeue-Medium", size: 14)!
+    cb.titleFont      = UIFont(name: "SFProText-Semibold", size: 17)!
     cb.titleColor     = UIColor(white: 0.6, alpha: 1)
     cb.buttonColor    = UIColor(red:0.25, green:0.25, blue:0.29, alpha:1.00)
     cb.separatorColor = UIColor(red:0.20, green:0.20, blue:0.25, alpha:1.00)
