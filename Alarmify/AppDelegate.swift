@@ -16,11 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
 
     var window: UIWindow?
     let spotifyPlayer = SPTAudioStreamingController.sharedInstance()
+    let spotifyLogin = SpotifyLogin.shared
+    let spotifyManager = SpotifyManager.instance
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         customizePopupViewForDarkMode()
-        SpotifyLogin.shared.configure(clientID: client_id, clientSecret: client_secret, redirectURL: URL(string: redirect_url)!)
+        spotifyLogin.configure(clientID: client_id, clientSecret: client_secret, redirectURL: URL(string: redirect_url)!)
         spotifyPlayer?.delegate = self
         spotifyPlayer?.playbackDelegate = self
         try? spotifyPlayer?.start(withClientId: client_id)
@@ -28,15 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
         let alarmData = UserDefaults.standard.object(forKey: alarm_key) as? NSData
         guard let finalAlarmData = alarmData,
             let spotifyAlarms = NSKeyedUnarchiver.unarchiveObject(with: finalAlarmData as Data) as? [SpotifyAlarm] else {
-                SpotifyManager.instance.spotifyAlarmList = [SpotifyAlarm]()
+                spotifyManager.spotifyAlarmList = [SpotifyAlarm]()
                 return true
         }
-        SpotifyManager.instance.spotifyAlarmList = spotifyAlarms
+        spotifyManager.spotifyAlarmList = spotifyAlarms
         return true
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        let handled = SpotifyLogin.shared.applicationOpenURL(url) { (error) in
+        let handled = spotifyLogin.applicationOpenURL(url) { (error) in
             if error != nil {
                 let errorAlert = UIAlertController(title: "Login Unsuccessful", message: "Failed to Login to Spotify", preferredStyle: .alert)
                 errorAlert.addAction(UIAlertAction(title: "😢", style: .default, handler: nil))
@@ -49,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTAudioStreamingDelegate
     }
     
     private func getAccessTokenIfAvailable() {
-        SpotifyLogin.shared.getAccessToken(completion: { (accessToken, error) in
+        spotifyLogin.getAccessToken(completion: { (accessToken, error) in
             if error != nil {
                 self.window?.rootViewController = LoginViewController()
                 return

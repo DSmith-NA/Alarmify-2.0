@@ -19,6 +19,7 @@
 		ABAB3DFC20EBDD8D00696328 /* SpotifyPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAB3DFB20EBDD8D00696328 /* SpotifyPlaylist.swift */; };
 		ABC2DE58205A2434008B5981 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC2DE57205A2434008B5981 /* SpotifyAudioPlayback.framework */; };
 		ABC2DE5A205A2EB5008B5981 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABDAEDA4204B601D002F136D /* Info.plist */; };
+		ABCF8B03214773F70013E453 /* StringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCF8B02214773F70013E453 /* StringFormatter.swift */; };
 		ABD3836720D738E000D70DFD /* SpotifyCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD3836620D738E000D70DFD /* SpotifyCollectionViewModel.swift */; };
 		ABD558202079154000C7D362 /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD5581F2079154000C7D362 /* BasicViewController.swift */; };
 		ABDAED99204B601D002F136D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAED98204B601D002F136D /* AppDelegate.swift */; };
@@ -80,6 +81,7 @@
 		ABAB3DFB20EBDD8D00696328 /* SpotifyPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPlaylist.swift; sourceTree = "<group>"; };
 		ABC2DE57205A2434008B5981 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
 		ABC2DE59205A24AC008B5981 /* Alarmify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Alarmify-Bridging-Header.h"; sourceTree = "<group>"; };
+		ABCF8B02214773F70013E453 /* StringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringFormatter.swift; sourceTree = "<group>"; };
 		ABD3836620D738E000D70DFD /* SpotifyCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyCollectionViewModel.swift; sourceTree = "<group>"; };
 		ABD5581F2079154000C7D362 /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
 		ABDAED95204B601D002F136D /* Alarmify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarmify.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +178,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		ABCF8B01214773D90013E453 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				ABCF8B02214773F70013E453 /* StringFormatter.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		ABDAED8C204B601D002F136D = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +208,7 @@
 		ABDAED97204B601D002F136D /* Alarmify */ = {
 			isa = PBXGroup;
 			children = (
+				ABCF8B01214773D90013E453 /* Util */,
 				ABAB3DFA20EBDD6E00696328 /* Models */,
 				AB07F89D20C9F51B007D59A4 /* Timers */,
 				ABDAEDBB204B7871002F136D /* Managers */,
@@ -528,6 +539,7 @@
 				AB75A231206885E200ECDCCA /* AlarmViewCollectionViewCell.swift in Sources */,
 				ABDAEDC8204CAF1E002F136D /* SpotifyTrackCollectionViewCell.swift in Sources */,
 				ABDAEDAB204B625B002F136D /* Constants.swift in Sources */,
+				ABCF8B03214773F70013E453 /* StringFormatter.swift in Sources */,
 				ABDAEDB8204B76E8002F136D /* SpotifyTracksViewController.swift in Sources */,
 				AB75A2332068915F00ECDCCA /* CreateAlarmViewController.swift in Sources */,
 				ABAB3DFC20EBDD8D00696328 /* SpotifyPlaylist.swift in Sources */,

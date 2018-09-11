@@ -12,63 +12,67 @@ import RxSwift
 private let mimeType = "image/gif"
 
 class BackgroundView: UIView {
-    private let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-    private var webViewDisposable: Disposable?
     private(set) var viewModel = BackgroundViewModel()
+    private let disposeBag = DisposeBag()
+    
+    private lazy var webView: UIWebView = { [weak self] _ in
+        let webView = UIWebView(frame: (self?.frame ?? CGRect.zero))
+        webView.delegate = self?.viewModel
+        webView.isUserInteractionEnabled = false
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
+        if let image = self?.viewModel.image {
+            webView.load(image, mimeType: "image/gif", textEncodingName: String(), baseURL: NSURL() as URL)
+        }
+        return webView
+    }(self)
+    
+    private lazy var spinner: UIActivityIndicatorView = { [weak self] _ in
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        spinner.center = self?.webView.center ?? CGPoint.zero
+        spinner.hidesWhenStopped = true
+        return spinner
+    }(self)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setWebView(UIWebView(frame: self.frame))
+        addSubviews()
+        subscribeToWebViewLoader()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setWebView(UIWebView(frame: self.frame))
+        addSubviews()
+        subscribeToWebViewLoader()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    
-    private func setWebView(_ webView: UIWebView) {
-        guard let image = viewModel.image else { return }
-        subscribeToWebViewLoader()
-        webView.delegate = viewModel
-        webView.load(image, mimeType: mimeType, textEncodingName: String(), baseURL: NSURL() as URL)
-        webView.isUserInteractionEnabled = false
-        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        webView.scrollView.contentInsetAdjustmentBehavior = .never
+    private func addSubviews() {
         addSubview(webView)
-    }
-    
-    private func setSpinner(_ webView: UIWebView?, stopSpinner: Bool) {
-        guard let webView = webView, !stopSpinner else { spinner.stopAnimating(); return }
-        spinner.isHidden = false
-        spinner.center = webView.center
-        spinner.hidesWhenStopped = true
         webView.addSubview(spinner)
         webView.bringSubview(toFront: spinner)
-        spinner.startAnimating()
+    }
+    
+    private func showSpinner(_ shouldShow: Bool) {
+        if shouldShow {
+           spinner.startAnimating()
+        } else {
+            spinner.stopAnimating()
+        }
+        spinner.isHidden = !shouldShow
     }
     
     private func subscribeToWebViewLoader() {
-        webViewDisposable = viewModel.webViewLoad.subscribe {
-            [weak self]
-            event in
-            switch (event) {
-            case .next(let type):
-                switch (type) {
-                case .started(let webView):
-                    self?.setSpinner(webView, stopSpinner: false)
-                case .finished(let webView):
-                    self?.setSpinner(webView, stopSpinner: true)
-                }
-            case .error(let error):
-                print("Failed to emit WebViewType event \(error.localizedDescription)")
-            case .completed:
-                print("WebView finished emitting events")
+        viewModel.webViewLoad.bind{ [weak self] event in
+            switch event {
+            case .started:
+                self?.showSpinner(true)
+            case .finished:
+                self?.showSpinner(false)
             }
-        }
+        }.disposed(by: disposeBag)
     }
 }

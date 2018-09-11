@@ -8,18 +8,24 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import TransitionButton
 
 class ClockViewController: BasicViewController {
     private let alarmVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CreateAlarmViewController")
-    private let timeFormatter = DateFormatter()
-    private var clockSubscriber: Disposable?
+    private let disposeBag = DisposeBag()
+    
+    private lazy var timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .none
+        return formatter
+    }()
     
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBAction func createAlarmTapped(_ button: TransitionButton) {
         button.startAnimation()
-        // spotifyManager.fetchPlaylists()
         DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
             sleep(1)
             DispatchQueue.main.async(execute: { () -> Void in
@@ -30,33 +36,14 @@ class ClockViewController: BasicViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        subscribeToClock()
-        timeFormatter.timeStyle = .short
-        timeFormatter.dateStyle = .none
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         subscribeToClock()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        disposeSubscriber()
-        super.viewDidDisappear(animated)
-    }
-    
     private func subscribeToClock() {
-        clockSubscriber = clockTimer.subscribe {
-            [weak self]
-            _ in
+        clockTimer.bind{ [weak self] _ in
             self?.timeLabel.text = self?.timeFormatter.string(from: Date())
-        }
-    }
-    
-    private func disposeSubscriber() {
-        clockSubscriber?.dispose()
-        clockSubscriber = nil
+        }.disposed(by: disposeBag)
     }
 }

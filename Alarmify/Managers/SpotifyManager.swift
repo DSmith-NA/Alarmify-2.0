@@ -23,7 +23,6 @@ class SpotifyManager {
     private(set) var tracks = [PlaylistTrack]()
     private(set) var spotifyPlaylists = Variable<[SpotifyPlaylist]>([])
     
-    private(set) var fetchPlaylistDisposable: Disposable?
     private(set) var vibrateDisposable: Disposable?
     private(set) var snoozeDisposable: Disposable?
     
@@ -40,39 +39,38 @@ class SpotifyManager {
     }
     
     func fetchPlaylists() {
-        fetchPlaylistDisposable = fetchPlaylistTimer.subscribe {
-            _ in
-            Spartan.getMyPlaylists(success: {
+        Spartan.getMyPlaylists(
+            success: {
                 [weak self]
                 pagingObject in
                 self?.fetchTracks(playlists: pagingObject.items)
-                }, failure: {
-                    spartanError in
-                    print(spartanError)
+            },
+            failure: {
+                spartanError in
+                print(spartanError)
             })
-        }
     }
     
-    func fetchTracks(playlists: [SimplifiedPlaylist]) {
+    private func fetchTracks(playlists: [SimplifiedPlaylist]) {
         playlists.forEach {
             playlist in
             getPlaylistTracks(playlist: playlist) {
                 [weak self]
                 playlistTracks in
+                guard let strongSelf = self else { return }
                 let sortedPlaylistTracks = playlistTracks.sorted {
                     playlistTrack1, playlistTrack2 in
                     playlistTrack1.track.name < playlistTrack2.track.name
                 }
         
-                // TODO: See if there's a way this can be refactored
-                self?.spotifyPlaylists.value.append(SpotifyPlaylist(name: playlist.name, tracks: sortedPlaylistTracks))
-                self?.spotifyPlaylists.value = (self?.spotifyPlaylists.value.sorted {
+                strongSelf.spotifyPlaylists.value.append(SpotifyPlaylist(name: playlist.name, tracks: sortedPlaylistTracks))
+                strongSelf.spotifyPlaylists.value = (strongSelf.spotifyPlaylists.value.sorted {
                     (playlist1, playlist2) in
                     playlist1.name < playlist2.name
-                    })!
+                })
                 
-                self?.tracks.append(contentsOf: sortedPlaylistTracks)
-                _ = self?.tracks.sorted {
+                strongSelf.tracks.append(contentsOf: sortedPlaylistTracks)
+                _ = strongSelf.tracks.sorted {
                     (playlistTrack1, playlistTrack2) in
                     playlistTrack1.track.name < playlistTrack2.track.name
                 }
@@ -121,8 +119,12 @@ class SpotifyManager {
             let userData = NSKeyedArchiver.archivedData(withRootObject: spotifyAlarms)
             UserDefaults.standard.set(userData, forKey: alarm_key)
             if (alarm.date < strongSelf.appStartTime) { return }
-            strongSelf.appDelegate?.spotifyPlayer?.playSpotifyURI(alarm.trackUri, startingWith: 0, startingWithPosition: 0, callback: nil)
-            strongSelf.presentDismissAlarm(alarm)
+            strongSelf.appDelegate?.spotifyLogin.getAccessToken { (accessToken, error) in
+                if (accessToken != nil) {
+                    strongSelf.appDelegate?.spotifyPlayer?.playSpotifyURI(alarm.trackUri, startingWith: 0, startingWithPosition: 0, callback: nil)
+                    strongSelf.presentDismissAlarm(alarm)
+                }
+            }
         }
     }
     
