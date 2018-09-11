@@ -13,8 +13,7 @@ class AlarmsViewController: BasicViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     private let viewModel = AlarmsViewModel()
-    private var alarms: [SpotifyAlarm]?
-    private var alarmDisposable: Disposable?
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +23,9 @@ class AlarmsViewController: BasicViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         subscribeToAlarms()
         viewModel.fetchAlarms()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        unsubscribeToAlarms()
     }
 
     private func initCollectionView() {
@@ -40,23 +36,9 @@ class AlarmsViewController: BasicViewController {
     }
     
     private func subscribeToAlarms() {
-        alarmDisposable = viewModel.alarmsObserver.subscribe {
-            [weak self]
-            event in
-            switch (event) {
-            case .next(let alarms):
-                self?.alarms = alarms
-                self?.collectionView.reloadData()
-            case .error(let error):
-                print("Failed to emit Alart Data \(error.localizedDescription)")
-            case .completed:
-                print("Emissions completed from Alarms Observer")
-            }
-        }
-    }
-    
-    private func unsubscribeToAlarms() {
-        alarmDisposable?.dispose()
+        viewModel.alarms.bind{ [weak self] _ in
+            self?.collectionView.reloadData()
+        }.disposed(by: disposeBag)
     }
 }
 
@@ -70,13 +52,10 @@ extension AlarmsViewController: UICollectionViewDelegateFlowLayout {
 // MARK: UICollectionViewDelegate
 extension AlarmsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let alarms = alarms else { return UICollectionViewCell() }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: alarm_view_collection_cell_id, for: indexPath) as! AlarmViewCollectionViewCell
-        
-        let alarm = alarms[indexPath.row]
-        cell.dateLabel.text = viewModel.getFormattedStringFor(date: alarm.date, type: .date)
-        cell.timeLabel.text = viewModel.getFormattedStringFor(date: alarm.date, type: .time)
-        cell.trackLabel.text = alarm.trackName
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: alarm_view_collection_cell_id, for: indexPath) as? AlarmViewCollectionViewCell
+            else { return UICollectionViewCell() }
+        let alarm = viewModel._alarms.value[indexPath.row]
+        cell.configureCell(withAlarm: alarm)
         return cell
     }
 }
@@ -89,6 +68,6 @@ extension AlarmsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return alarms != nil ? alarms!.count : 0
+        return viewModel._alarms.value.count
     }
 }

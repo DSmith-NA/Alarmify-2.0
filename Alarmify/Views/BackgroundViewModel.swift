@@ -9,29 +9,29 @@
 import Foundation
 import RxSwift
 
-private let stars = ("stars", "gif")
-
-enum WebViewType<UIWebView> {
-    case started(UIWebView)
-    case finished(UIWebView)
+enum WebViewType {
+    case started
+    case finished
 }
 
 class BackgroundViewModel: NSObject {
+    private let stars = ("stars", "gif")
+    
     var image: Data? {
         let filePath = Bundle.main.path(forResource:stars.0, ofType: stars.1)
         return filePath != nil ? try? NSData(contentsOfFile: filePath!) as Data : nil
     }
     
-    let webViewLoad = PublishSubject<WebViewType<UIWebView>>()
+    let webViewLoad = PublishSubject<WebViewType>()
 }
 
 // MARK: UIWebViewDelegate
 extension BackgroundViewModel: UIWebViewDelegate {
     func webViewDidStartLoad(_ webView: UIWebView) {
-        webViewLoad.onNext(.started(webView))
+        webViewLoad.onNext(.started)
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        webViewLoad.onNext(.finished(webView))
+        webViewLoad.onNext(.finished)
     }
 }

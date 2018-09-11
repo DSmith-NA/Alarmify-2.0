@@ -11,15 +11,15 @@ import SpotifyLogin
 
 class LoginViewController: BasicViewController {
     
+    private lazy var spotifyLoginButton: SpotifyLoginButton = { [unowned self] _ in
+        let button = SpotifyLoginButton(viewController: self, scopes: [.streaming, .userLibraryRead])
+        button.center = self.view.center
+        return button
+    }(self)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(BackgroundView(frame: view.frame))
-        setupLoginButton()
-    }
-    
-    private func setupLoginButton() {
-        let loginButton = SpotifyLoginButton(viewController: self, scopes: [.streaming, .userLibraryRead])
-        loginButton.center = view.center
-        view.addSubview(loginButton)
+        view.addSubview(spotifyLoginButton)
     }
 }

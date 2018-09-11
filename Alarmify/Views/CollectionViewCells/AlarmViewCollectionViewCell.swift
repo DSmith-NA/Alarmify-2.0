@@ -13,4 +13,10 @@ class AlarmViewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var trackLabel: UILabel!
     @IBOutlet weak var onOffSwitch: UISwitch!
+    
+    func configureCell(withAlarm alarm: SpotifyAlarm) {
+        dateLabel.text = StringFormatter.getStringFor(date: alarm.date, type: .date)
+        timeLabel.text = StringFormatter.getStringFor(date: alarm.date, type: .time)
+        trackLabel.text = alarm.trackName
+    }
 }

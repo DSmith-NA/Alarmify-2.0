@@ -18,61 +18,47 @@ enum FilterType {
 
 class SpotifyCollectionViewModel: NSObject {
     let filteredTracksObservable = PublishSubject<[PlaylistTrack]>()
-    let spotifyPlaylistsObservable = PublishSubject<[SpotifyPlaylist]>()
     
-    private var spotifyPlaylistsDisposable: Disposable?
-    private(set) var spotifyPlaylists: [SpotifyPlaylist]?
+    private(set) var spotifyPlaylists = Variable<[SpotifyPlaylist]>([])
+    private var disposeBag = DisposeBag()
    
+    private var _spotifyAlarm = Variable<SpotifyAlarm?>(nil)
+    var spotifyAlarm: Observable<SpotifyAlarm?> { return _spotifyAlarm.asObservable().distinctUntilChanged() }
+    
     override init() {
         super.init()
         subscribeToSpotifyPlaylists()
     }
     
     deinit {
-        unsubscribeToSpotifyPlaylists()
+        disposeBag = DisposeBag()
     }
     
     func subscribeToSpotifyPlaylists() {
-        
-        spotifyPlaylistsDisposable = SpotifyManager.instance.spotifyPlaylists.asObservable().subscribe {
-            [weak self]
-            event in
-            switch(event) {
-                case .next(let spotifyPlaylists):
-                    self?.spotifyPlaylists = spotifyPlaylists
-                    self?.spotifyPlaylistsObservable.onNext(spotifyPlaylists)
-                case .error(let error):
-                    print("Emission of Spotify Playlists failed: \(error.localizedDescription)")
-                case .completed:
-                    print("Spotify Manager completed emissions")
-            }
-        }
-    }
-    
-    func unsubscribeToSpotifyPlaylists() {
-        spotifyPlaylistsDisposable?.dispose()
+        SpotifyManager.instance.spotifyPlaylists.asObservable().bind{ [weak self] playlists in
+            self?.spotifyPlaylists.value = playlists
+        }.disposed(by: disposeBag)
     }
     
     func filterTracksBy(type: FilterType, searchText: String) -> [PlaylistTrack] {
         var filteredTracks = [PlaylistTrack]()
-        guard let playlists = spotifyPlaylists else { return filteredTracks }
         
         let searchText = searchText.lowercased().trimmingCharacters(in: .whitespaces)
         switch (type) {
             case .tracks:
-                filteredTracks += playlists.flatMap { $0.tracks }.filter {
+                filteredTracks += spotifyPlaylists.value.flatMap { $0.tracks }.filter {
                     track in
                     track.track.name.lowercased().contains(searchText)
                 }
             
             case .playlists:
-                filteredTracks += playlists.filter {
+                filteredTracks += spotifyPlaylists.value.filter {
                     playlist in
                     playlist.name.lowercased().contains(searchText)
                     }.flatMap { $0.tracks }
             
             case .artists:
-                filteredTracks += playlists.flatMap { $0.tracks }.filter {
+                filteredTracks += spotifyPlaylists.value.flatMap { $0.tracks }.filter {
                     track in
                     track.track.artists.contains {
                         artist in
@@ -83,15 +69,20 @@ class SpotifyCollectionViewModel: NSObject {
         return filteredTracks
     }
     
-    func addAlarm(_ alarm: SpotifyAlarm, datePicker: UIDatePicker?) {
-        guard let datePicker = datePicker else { return }
-        let alarmData = UserDefaults.standard.object(forKey: alarm_key) as? NSData
-        guard let finalAlarmData = alarmData,
-            var spotifyAlarms = NSKeyedUnarchiver.unarchiveObject(with: finalAlarmData as Data) as? [SpotifyAlarm] else {
+    func addAlarm(fromTrack track: PlaylistTrack, datePicker: UIDatePicker?) -> SpotifyAlarm? {
+        guard let datePicker = datePicker else { return nil }
+        let trackURL = track.track.album.images[0].url
+        let image: UIImage? = trackURL != nil ? try! UIImage.sd_image(with: Data(contentsOf: URL(string: trackURL!)!)) : nil
+        let data = UserDefaults.standard.object(forKey: alarm_key) as? NSData
+        let alarm = SpotifyAlarm(date: datePicker.date, trackName: track.track.name, trackUri: track.track.uri, image: image)
+        
+        guard let alarmData = data,
+            var spotifyAlarms = NSKeyedUnarchiver.unarchiveObject(with: alarmData as Data) as? [SpotifyAlarm]
+            else {
                 var spotifyAlarms = [SpotifyAlarm]()
                 spotifyAlarms.append(alarm)
                 updateUserDefaults(with: spotifyAlarms)
-                return
+                return alarm
         }
         
         spotifyAlarms = spotifyAlarms.filter {
@@ -101,6 +92,7 @@ class SpotifyCollectionViewModel: NSObject {
         
         spotifyAlarms.append(alarm)
         updateUserDefaults(with: spotifyAlarms)
+        return alarm
     }
     
     private func updateUserDefaults(with alarms: [SpotifyAlarm]) {
