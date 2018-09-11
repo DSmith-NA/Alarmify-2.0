@@ -52,8 +52,8 @@ class BackgroundView: UIView {
     
     private func addSubviews() {
         addSubview(webView)
-        webView.addSubview(spinner)
-        webView.bringSubview(toFront: spinner)
+        addSubview(spinner)
+        bringSubview(toFront: spinner)
     }
     
     private func showSpinner(_ shouldShow: Bool) {
